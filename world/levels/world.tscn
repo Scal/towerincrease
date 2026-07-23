@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://i5qnf4mkbxm1"]
+
+[ext_resource type="PackedScene" uid="uid://dxa7frursqoxy" path="res://entities/player/player.tscn" id="1_b3ony"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_m637p"]
+sky_top_color = Color(0.16277725, 0.39346677, 0.48871523, 1)
+sky_horizon_color = Color(0.45141062, 0.5035489, 0.52113336, 1)
+ground_bottom_color = Color(0.123719044, 0.10158274, 0.076672085, 1)
+ground_horizon_color = Color(0.45141062, 0.5035489, 0.52113336, 1)
+energy_multiplier = 0.4
+
+[sub_resource type="Sky" id="Sky_od3m6"]
+sky_material = SubResource("ProceduralSkyMaterial_m637p")
+
+[sub_resource type="Environment" id="Environment_748nt"]
+background_mode = 2
+sky = SubResource("Sky_od3m6")
+glow_enabled = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_od3m6"]
+frequency = 0.022
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_m637p"]
+noise = SubResource("FastNoiseLite_od3m6")
+seamless = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_symyc"]
+albedo_color = Color(0.25211272, 0.25211275, 0.25211272, 1)
+albedo_texture = SubResource("NoiseTexture2D_m637p")
+metallic = 1.0
+uv1_scale = Vector3(0.413, 0.413, 0.413)
+uv1_triplanar = true
+
+[node name="World" type="Node3D" unique_id=1328101134]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1735818324]
+transform = Transform3D(-0.8660254, -0.50000006, -2.1855696e-08, 0, -4.371139e-08, 1, -0.50000006, 0.8660254, 3.7855173e-08, 0, 0, 0)
+light_energy = 0.95
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=893809505]
+environment = SubResource("Environment_748nt")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="." unique_id=1115570105]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.4271661, 0)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+radius = 5.0307617
+
+[node name="Player" parent="." unique_id=94612561 instance=ExtResource("1_b3ony")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28980923, 0, 0.5198641)
