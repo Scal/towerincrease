@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://i5qnf4mkbxm1"]
 
 [ext_resource type="PackedScene" uid="uid://dxa7frursqoxy" path="res://entities/player/player.tscn" id="1_b3ony"]
+[ext_resource type="PackedScene" uid="uid://hgnmianpqcis" path="res://entities/enemies/flying_enemy.tscn" id="2_w5gid"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_m637p"]
 sky_top_color = Color(0.16277725, 0.39346677, 0.48871523, 1)
@@ -49,3 +50,6 @@ radius = 5.0307617
 
 [node name="Player" parent="." unique_id=94612561 instance=ExtResource("1_b3ony")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28980923, 0, 0.5198641)
+
+[node name="FlyingEnemy" parent="." unique_id=1170897061 instance=ExtResource("2_w5gid")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4506078, -62.81467)
