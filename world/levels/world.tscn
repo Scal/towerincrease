@@ -1,16 +1,22 @@
 [gd_scene format=3 uid="uid://i5qnf4mkbxm1"]
 
+[ext_resource type="PackedScene" uid="uid://dukrm01682an7" path="res://world/props/skyplane/skyplane.tscn" id="1_amlj2"]
 [ext_resource type="PackedScene" uid="uid://dxa7frursqoxy" path="res://entities/player/player.tscn" id="1_b3ony"]
+[ext_resource type="Script" uid="uid://bpvq1yiimm2bp" path="res://world/levels/world.gd" id="1_bgq80"]
 [ext_resource type="PackedScene" uid="uid://c1qf7vam8ntog" path="res://entities/enemies/turret/turret.tscn" id="2_1xuw6"]
+[ext_resource type="Material" uid="uid://b31e63ostk2qw" path="res://common/materials/metal_noise.material" id="2_vgxu7"]
 [ext_resource type="PackedScene" uid="uid://dclunake2c433" path="res://entities/enemies/fly/fly.tscn" id="2_w5gid"]
 [ext_resource type="PackedScene" uid="uid://cdpr8h3imvgso" path="res://entities/enemies/spider/spider.tscn" id="3_amlj2"]
+[ext_resource type="Script" uid="uid://blxjfy1mw7nco" path="res://world/levels/drill.gd" id="7_ecds7"]
+[ext_resource type="PackedScene" uid="uid://3tb3addro7mw" path="res://world/props/drill_parts/spiral.tscn" id="8_74oec"]
+[ext_resource type="PackedScene" uid="uid://dvuydxmgrwogs" path="res://world/props/drill_parts/spiral_hole.tscn" id="9_bgq80"]
+[ext_resource type="PackedScene" uid="uid://wm4n31u400e4" path="res://world/props/drill_parts/spiral_broken.tscn" id="11_7xuvk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_m637p"]
 sky_top_color = Color(0.16277725, 0.39346677, 0.48871523, 1)
 sky_horizon_color = Color(0.45141062, 0.5035489, 0.52113336, 1)
 ground_bottom_color = Color(0.123719044, 0.10158274, 0.076672085, 1)
 ground_horizon_color = Color(0.45141062, 0.5035489, 0.52113336, 1)
-energy_multiplier = 0.4
 
 [sub_resource type="Sky" id="Sky_od3m6"]
 sky_material = SubResource("ProceduralSkyMaterial_m637p")
@@ -18,23 +24,19 @@ sky_material = SubResource("ProceduralSkyMaterial_m637p")
 [sub_resource type="Environment" id="Environment_748nt"]
 background_mode = 2
 sky = SubResource("Sky_od3m6")
+ssao_enabled = true
 glow_enabled = true
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_od3m6"]
-frequency = 0.022
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_m637p"]
-noise = SubResource("FastNoiseLite_od3m6")
-seamless = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_symyc"]
-albedo_color = Color(0.25211272, 0.25211275, 0.25211272, 1)
-albedo_texture = SubResource("NoiseTexture2D_m637p")
-metallic = 1.0
-uv1_scale = Vector3(0.413, 0.413, 0.413)
-uv1_triplanar = true
+[sub_resource type="QuadMesh" id="QuadMesh_3x8ub"]
+size = Vector2(1000, 1000)
+orientation = 1
 
 [node name="World" type="Node3D" unique_id=1328101134]
+script = ExtResource("1_bgq80")
+
+[node name="Skyplane" parent="." unique_id=441013256 instance=ExtResource("1_amlj2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -173.42744, 0)
+metadata/_edit_lock_ = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1735818324]
 transform = Transform3D(-0.8660254, -0.50000006, -2.1855696e-08, 0, -4.371139e-08, 1, -0.50000006, 0.8660254, 3.7855173e-08, 0, 0, 0)
@@ -45,21 +47,45 @@ shadow_enabled = true
 environment = SubResource("Environment_748nt")
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="." unique_id=1115570105]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.4271661, 0)
-material_override = SubResource("StandardMaterial3D_symyc")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.8643036, 0)
+material_override = ExtResource("2_vgxu7")
 use_collision = true
-radius = 16.573242
+radius = 65.53125
+height = 2.8742676
+sides = 18
 
 [node name="Player" parent="." unique_id=94612561 instance=ExtResource("1_b3ony")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28980923, 0, 0.5198641)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59.19712, -654.0189, 30.223587)
 
 [node name="Enemies" type="Node3D" parent="." unique_id=1063892370]
 
 [node name="Turret" parent="Enemies" unique_id=1870468105 instance=ExtResource("2_1xuw6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.555867, -0.4210053, -7.822258)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0859952, -0.4210053, -9.474955)
 
 [node name="Spider" parent="Enemies" unique_id=804887201 instance=ExtResource("3_amlj2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.88256884, -0.4200236, -9.85607)
 
 [node name="Fly" parent="Enemies" unique_id=657523278 instance=ExtResource("2_w5gid")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.9263034, 0.025289714, -9.697268)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.540926, 0.025289714, -9.697268)
+
+[node name="AroundWorld" type="Node3D" parent="." unique_id=1117335297]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="AroundWorld" unique_id=343253258]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -663.28406, 0)
+visible = false
+mesh = SubResource("QuadMesh_3x8ub")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="AroundWorld" unique_id=1829448209]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -723.9905, 0)
+use_collision = true
+size = Vector3(1000, 50, 1000)
+
+[node name="Drill" type="Node3D" parent="." unique_id=127304508]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10.763395, 0)
+script = ExtResource("7_ecds7")
+parts = Array[PackedScene]([ExtResource("8_74oec"), ExtResource("9_bgq80"), ExtResource("11_7xuvk")])
+count = 70
+step_distance = -10.0
+rotation_step_deg = -90.0
+avoid_consecutive_duplicates = null
+randomize_on_launch = true

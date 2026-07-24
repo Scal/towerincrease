@@ -8,6 +8,14 @@ height = 1.8
 [node name="Player" type="CharacterBody3D" unique_id=94612561 groups=["player"]]
 script = ExtResource("1_symyc")
 
+[node name="LedgeCheckRay" type="RayCast3D" parent="." unique_id=64309664]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+target_position = Vector3(0, 0, -1)
+
+[node name="LedgeWallCheckRay" type="RayCast3D" parent="." unique_id=2040928139]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0297167, 0)
+target_position = Vector3(0, 0, -1)
+
 [node name="Head" type="Node3D" parent="." unique_id=577275024]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
@@ -15,6 +23,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 target_position = Vector3(0, 0, -2)
 
 [node name="Eye" type="Camera3D" parent="Head" unique_id=2144059397]
+
+[node name="Hand" type="Node3D" parent="Head" unique_id=1206067018]
+
+[node name="GrappleRay" type="RayCast3D" parent="Head" unique_id=932976885]
+visible = false
+target_position = Vector3(0, 0, -40)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=656476774]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)

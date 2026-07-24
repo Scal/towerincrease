@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://wm4n31u400e4"]
+
+[ext_resource type="PackedScene" uid="uid://ek2bt6ypfp51" path="res://world/props/drill_parts/spiral_broken.glb" id="1_mg0k8"]
+[ext_resource type="Material" uid="uid://b31e63ostk2qw" path="res://common/materials/metal_noise.material" id="2_r12ek"]
+[ext_resource type="PackedScene" uid="uid://d5hnbuqy4yon" path="res://entities/enemies/enemy_spawner.tscn" id="3_r12ek"]
+
+[node name="spiral_broken" unique_id=1314514436 instance=ExtResource("1_mg0k8")]
+
+[node name="Spiral_002" parent="." index="0" unique_id=743607416]
+material_override = ExtResource("2_r12ek")
+
+[node name="EnemySpawner" parent="." index="2" unique_id=1731548595 instance=ExtResource("3_r12ek")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.428925, 5.8702183, -79.42196)
+
+[node name="EnemySpawner2" parent="." index="3" unique_id=1432267105 instance=ExtResource("3_r12ek")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.2875795, 1.6245432, -94.57747)

@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://d5hnbuqy4yon"]
+
+[ext_resource type="Script" uid="uid://dsymstjjmgpdg" path="res://entities/enemies/enemy_spawner.gd" id="1_3shc7"]
+
+[node name="EnemySpawner" type="Marker3D" unique_id=1731548595]
+script = ExtResource("1_3shc7")
+spawn_chance = 0.25
