@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://c1qf7vam8ntog"]
+
+[ext_resource type="PackedScene" uid="uid://b1k1d8sx3d3uk" path="res://entities/enemies/turret/turret.blend" id="1_4yvjg"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_3x8ub"]
+height = 1.0688782
+radius = 0.41503906
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4yvjg"]
+radius = 6.97527
+
+[node name="Turret" unique_id=1870468105 instance=ExtResource("1_4yvjg")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="0" unique_id=561637948]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0.5431671, 0)
+shape = SubResource("CylinderShape3D_3x8ub")
+
+[node name="ammo" parent="." index="1" unique_id=1118627248]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="head" parent="." index="2" unique_id=1735364503]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="legs" parent="." index="3" unique_id=1916718308]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="rotating_base" parent="." index="4" unique_id=311972000]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="DetectionArea" type="Area3D" parent="." index="5" unique_id=677505609]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea" index="0" unique_id=1255577406]
+visible = false
+shape = SubResource("SphereShape3D_4yvjg")

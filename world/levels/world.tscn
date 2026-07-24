@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://i5qnf4mkbxm1"]
 
 [ext_resource type="PackedScene" uid="uid://dxa7frursqoxy" path="res://entities/player/player.tscn" id="1_b3ony"]
-[ext_resource type="PackedScene" uid="uid://hgnmianpqcis" path="res://entities/enemies/flying_enemy.tscn" id="2_w5gid"]
+[ext_resource type="PackedScene" uid="uid://c1qf7vam8ntog" path="res://entities/enemies/turret/turret.tscn" id="2_1xuw6"]
+[ext_resource type="PackedScene" uid="uid://dclunake2c433" path="res://entities/enemies/fly/fly.tscn" id="2_w5gid"]
+[ext_resource type="PackedScene" uid="uid://cdpr8h3imvgso" path="res://entities/enemies/spider/spider.tscn" id="3_amlj2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_m637p"]
 sky_top_color = Color(0.16277725, 0.39346677, 0.48871523, 1)
@@ -46,10 +48,18 @@ environment = SubResource("Environment_748nt")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.4271661, 0)
 material_override = SubResource("StandardMaterial3D_symyc")
 use_collision = true
-radius = 5.0307617
+radius = 16.573242
 
 [node name="Player" parent="." unique_id=94612561 instance=ExtResource("1_b3ony")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28980923, 0, 0.5198641)
 
-[node name="FlyingEnemy" parent="." unique_id=1170897061 instance=ExtResource("2_w5gid")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4506078, -62.81467)
+[node name="Enemies" type="Node3D" parent="." unique_id=1063892370]
+
+[node name="Turret" parent="Enemies" unique_id=1870468105 instance=ExtResource("2_1xuw6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.555867, -0.4210053, -7.822258)
+
+[node name="Spider" parent="Enemies" unique_id=804887201 instance=ExtResource("3_amlj2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.88256884, -0.4200236, -9.85607)
+
+[node name="Fly" parent="Enemies" unique_id=657523278 instance=ExtResource("2_w5gid")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.9263034, 0.025289714, -9.697268)

@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cdpr8h3imvgso"]
+
+[ext_resource type="PackedScene" uid="uid://bnvidtbfi2dhq" path="res://entities/enemies/spider/spider.blend" id="1_hwkc7"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_maq14"]
+radius = 0.8239416
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hwkc7"]
+radius = 6.97527
+
+[node name="Spider" unique_id=804887201 instance=ExtResource("1_hwkc7")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1" unique_id=1786931260]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.80595946, 0)
+shape = SubResource("SphereShape3D_maq14")
+
+[node name="DetectionArea" type="Area3D" parent="." index="2" unique_id=1200761680]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea" index="0" unique_id=82854800]
+visible = false
+shape = SubResource("SphereShape3D_hwkc7")
