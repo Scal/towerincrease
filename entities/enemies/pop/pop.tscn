@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://by643hbasgu3s"]
+
+[ext_resource type="PackedScene" uid="uid://c8bidyly5ansj" path="res://entities/enemies/pop/pop.blend" id="1_sfatp"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3x8ub"]
+radius = 0.23291016
+height = 0.87109375
+
+[node name="Pop" unique_id=179741264 instance=ExtResource("1_sfatp")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="3" unique_id=1076608967]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.0021992922, 0.24825928, -0.00736505)
+shape = SubResource("CapsuleShape3D_3x8ub")

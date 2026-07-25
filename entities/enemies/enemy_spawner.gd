@@ -5,6 +5,7 @@ extends Marker3D
 	preload("res://entities/enemies/spider/spider.tscn"),
 	preload("res://entities/enemies/turret/turret.tscn"),
 	preload("res://entities/enemies/fly/fly.tscn"),
+	preload("res://entities/enemies/pop/pop.tscn"),
 ]
 @export var enemies_node_path: NodePath = "/root/World/Enemies"
 
