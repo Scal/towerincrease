@@ -7,27 +7,30 @@
 radius = 0.47080415
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_maq14"]
-radius = 6.97527
+radius = 10.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ywqtg"]
+radius = 15.0
 
 [node name="Fly" unique_id=657523278 instance=ExtResource("1_210si")]
 script = ExtResource("1_2fpj6")
 
-[node name="ammo" parent="." index="0" unique_id=1262948630]
+[node name="ammo" parent="." index="0" unique_id=1667712486]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.05381295, -0.0036373436, -0.15361494)
 
-[node name="arm" parent="." index="1" unique_id=2029814602]
+[node name="arm" parent="." index="1" unique_id=1894648627]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.05381295, -0.0036373436, -0.15361494)
 
-[node name="body" parent="." index="2" unique_id=2071618693]
+[node name="body" parent="." index="2" unique_id=998268277]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.05381295, -0.0036373436, -0.15361494)
 
-[node name="gun" parent="." index="3" unique_id=42343044]
+[node name="gun" parent="." index="3" unique_id=297948889]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.05381295, -0.0036373436, -0.15361494)
 
-[node name="propeller_top" parent="." index="4" unique_id=1484949809]
+[node name="propeller_top" parent="." index="4" unique_id=390389925]
 transform = Transform3D(-0.29702815, 0, -2.5967026e-08, 0, 0.23232865, 0, 2.5967026e-08, 0, -0.29702815, 0.055307753, 0.05687302, -0.15546039)
 
-[node name="propller_back" parent="." index="5" unique_id=367392520]
+[node name="propller_back" parent="." index="5" unique_id=1383855929]
 transform = Transform3D(-1.3551064, 0, -1.1846716e-07, 0, 1.3551064, 0, 1.1846716e-07, 0, -1.3551064, -0.043060083, -0.04568237, 0.3900079)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="6" unique_id=1530843631]
@@ -39,3 +42,12 @@ shape = SubResource("SphereShape3D_3x8ub")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea" index="0" unique_id=584677668]
 visible = false
 shape = SubResource("SphereShape3D_maq14")
+
+[node name="UndetectionArea" type="Area3D" parent="." index="8" unique_id=1745914483]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="UndetectionArea" index="0" unique_id=1771257746]
+visible = false
+shape = SubResource("SphereShape3D_ywqtg")
+
+[node name="ProjectileSpawner" type="Node3D" parent="." index="9" unique_id=1497640362]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.052886784, -0.40133446, -0.7583198)
