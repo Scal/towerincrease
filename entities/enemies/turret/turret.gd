@@ -70,10 +70,8 @@ func _shoot(delta: float) -> void:
 	var target_position := player.global_position
 	var to_player_direction := (target_position - global_position).normalized()
 	
-	var looking_direction = -basis.z
+	var looking_direction = head.basis.z
 	var to_player_angle = looking_direction.angle_to(to_player_direction)
-	
-	print(self.global_position, scene.global_position, player.global_position)
 	
 	if to_player_angle < attack_angle:
 		var projectile_instance = projectile.instantiate()
