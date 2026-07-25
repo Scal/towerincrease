@@ -6,8 +6,9 @@ var speed := 3.0
 var attack_angle := PI/4
 var optimal_attack_distance := 10.0
 var shooting_interval := 5.0
-var last_shooting_time = 0.0
-var projectile := load("res://entities/enemies/projectile/projectile.tscn") #todo: change to rocket
+var last_shooting_time := 0.0
+var rocket_spawner_index := 0
+var projectile := load("res://entities/enemies/rocket/rocket.tscn") 
 
 @onready var detection_area: Area3D = $DetectionArea
 @onready var undetection_area: Area3D = $UndetectionArea
@@ -76,17 +77,16 @@ func _shoot(delta: float) -> void:
 	var to_player_angle = looking_direction.angle_to(to_player_direction)
 	
 	if to_player_angle < attack_angle:
-		var rocket_instance1 = projectile.instantiate()
-		var rocket_instance2 = projectile.instantiate()
+		add_to_group("enemies")
+		var rocket_instance = projectile.instantiate()
+		scene.add_child(rocket_instance)
 		
-		scene.add_child(rocket_instance1)
-		scene.add_child(rocket_instance2)
+		rocket_instance.global_position = rocket_spawners[rocket_spawner_index].global_position
+		rocket_spawner_index += 1
+		rocket_spawner_index %= 2
 		
-		rocket_instance1.global_position = rocket_spawners[0].global_position
-		rocket_instance2.global_position = rocket_spawners[1].global_position
-		
-		rocket_instance1.direction = looking_direction
-		rocket_instance2.direction = looking_direction
+		rocket_instance.rotation = rotation
+		rocket_instance.set_player(player)
 		return
 
 

@@ -20,6 +20,7 @@ var projectile := load("res://entities/enemies/projectile/projectile.tscn")
 
 
 func _ready() -> void:
+	add_to_group("enemies")
 	if detection_area:
 		detection_area.body_entered.connect(_on_detection_body_entered)
 	else:

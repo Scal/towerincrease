@@ -8,6 +8,7 @@ var world_border := 1000.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	add_to_group("enemies")
 	if collision_area:
 		collision_area.body_entered.connect(_on_detection_body_entered)
 	pass # Replace with function body.
@@ -21,14 +22,9 @@ func _process(delta: float) -> void:
 
 
 func _on_detection_body_entered(body: Node3D) -> void:
-	if body.name == "Fly":
-		return
-	if body.name == "Turret":
-		return
-	if body.name == "Spider":
+	if body.is_in_group("enemies"):
 		return
 	if body.is_in_group("player"):
 		# todo: damage
 		print("hit!")
-	print(body.name)
 	queue_free()
