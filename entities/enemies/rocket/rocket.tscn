@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://cg3wcwl7tr26c"]
+
+[ext_resource type="PackedScene" uid="uid://dle3leypvl7ub" path="res://entities/enemies/rocket/rocket.blend" id="1_mhncn"]
+[ext_resource type="Script" uid="uid://2g3mper5lt57" path="res://entities/enemies/rocket/rocket.gd" id="2_g78u1"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3x8ub"]
+radius = 0.1430664
+height = 0.45703125
+
+[node name="rocket" unique_id=2089301376 instance=ExtResource("1_mhncn")]
+script = ExtResource("2_g78u1")
+
+[node name="Cylinder" parent="." index="0" unique_id=810820245]
+transform = Transform3D(1.6701133, 0, 0, 0, 1.6701133, 0, 0, 0, 1.6701133, 0, 0, -0.045990087)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1" unique_id=1355464055]
+transform = Transform3D(1.6701133, 0, 0, 0, -7.300297e-08, 1.6701133, 0, -1.6701133, -7.300297e-08, 0, 0, -0.045990087)
+shape = SubResource("CapsuleShape3D_3x8ub")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="2" unique_id=1702762856]
+transform = Transform3D(1.6701133, 0, 0, 0, 1.6701133, 0, 0, 0, 1.6701133, 0, 0, 0.29787114)
+visible = false
+light_color = Color(0.9510111, 0.36549664, 0, 1)
+light_energy = 16.0
+light_size = 0.2
+shadow_enabled = true

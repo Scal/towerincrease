@@ -10,8 +10,11 @@ radius = 6.97527
 
 [node name="Spider" unique_id=804887201 instance=ExtResource("1_hwkc7")]
 
+[node name="spiderEnemy_Rig" parent="." index="0" unique_id=995167904]
+transform = Transform3D(2.458315, 0, 0, 0, 2.458315, 0, 0, 0, 2.458315, 0, -0.58767134, 0)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1" unique_id=1786931260]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.80595946, 0)
+transform = Transform3D(2.458315, 0, 0, 0, 2.458315, 0, 0, 0, 2.458315, 0, 1.3936307, 0)
 shape = SubResource("SphereShape3D_maq14")
 
 [node name="DetectionArea" type="Area3D" parent="." index="2" unique_id=1200761680]

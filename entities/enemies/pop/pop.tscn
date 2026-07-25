@@ -8,6 +8,15 @@ height = 0.87109375
 
 [node name="Pop" unique_id=179741264 instance=ExtResource("1_sfatp")]
 
+[node name="body" parent="." index="0" unique_id=931149382]
+transform = Transform3D(3.9567795, 0, 0, 0, 3.9567795, 0, 0, 0, 3.9567795, -0.0016257276, -0.47683045, 0.005444207)
+
+[node name="wheel_L" parent="." index="1" unique_id=40789021]
+transform = Transform3D(3.9567795, 0, 0, 0, 3.9567795, 0, 0, 0, 3.9567795, 1.0115988, 0.3082104, 0.005444207)
+
+[node name="wheel_R" parent="." index="2" unique_id=1091803954]
+transform = Transform3D(3.9567795, 0, 0, 0, 3.9567795, 0, 0, 0, 3.9567795, -1.0148501, 0.30821046, 0.005444207)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="3" unique_id=1076608967]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.0021992922, 0.24825928, -0.00736505)
+transform = Transform3D(-1.7295632e-07, 3.9567795, 0, -3.9567795, -1.7295632e-07, 0, 0, 0, 3.9567795, 0.007076387, 0.5054767, -0.02369767)
 shape = SubResource("CapsuleShape3D_3x8ub")
