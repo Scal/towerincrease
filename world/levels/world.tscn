@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://i5qnf4mkbxm1"]
 
 [ext_resource type="PackedScene" uid="uid://dxa7frursqoxy" path="res://entities/player/player.tscn" id="1_b3ony"]
-[ext_resource type="PackedScene" uid="uid://c1qf7vam8ntog" path="res://entities/enemies/turret/turret.tscn" id="2_1xuw6"]
+[ext_resource type="PackedScene" uid="uid://b4cror1if8tjn" path="res://entities/enemies/turret/turret.tscn" id="2_1xuw6"]
 [ext_resource type="PackedScene" uid="uid://dclunake2c433" path="res://entities/enemies/fly/fly.tscn" id="2_w5gid"]
 [ext_resource type="PackedScene" uid="uid://cdpr8h3imvgso" path="res://entities/enemies/spider/spider.tscn" id="3_amlj2"]
 
@@ -59,7 +59,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28980923, 0, 0.5198641)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.555867, -0.4210053, -7.822258)
 
 [node name="Spider" parent="Enemies" unique_id=804887201 instance=ExtResource("3_amlj2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.88256884, -0.4200236, -9.85607)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.883, -0.42, -9.856)
 
 [node name="Fly" parent="Enemies" unique_id=657523278 instance=ExtResource("2_w5gid")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.9263034, 0.025289714, -9.697268)

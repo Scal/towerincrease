@@ -30,8 +30,13 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+		
 	_move(delta)
 	_shoot(delta)
+	
+	move_and_slide()
 	
 func _move(delta: float) -> void:
 	if not player:
@@ -43,14 +48,15 @@ func _move(delta: float) -> void:
 	var target_transform := transform.looking_at(target_position, Vector3.UP)
 	transform = transform.interpolate_with(target_transform, turning_speed * delta)
 	
+	
 	if to_player_distance < optimal_attack_distance:
 		return
 	
 	var looking_direction = -basis.z
 	var movement = looking_direction * speed * delta
+	movement.y = 0
 	
 	global_position += movement
-	
 
 
 func _shoot(delta: float) -> void:
