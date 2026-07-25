@@ -2,6 +2,7 @@ extends Node3D
 
 var direction := Vector3(0, 0, 0)
 var speed := 5.0
+var world_border := 1000.0
 
 @onready var collision_area: Area3D = $CollisionArea
 
@@ -15,6 +16,8 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	global_position += direction * speed * delta
+	if global_position.length() > world_border:
+		queue_free()
 
 
 func _on_detection_body_entered(body: Node3D) -> void:
