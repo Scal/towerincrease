@@ -55,7 +55,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28980923, 0, 0.5198641)
 
 [node name="Enemies" type="Node3D" parent="." unique_id=1063892370]
 
-[node name="Turret" parent="Enemies" unique_id=1870468105 instance=ExtResource("2_1xuw6")]
+[node name="Turret" parent="Enemies" unique_id=77273623 instance=ExtResource("2_1xuw6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.555867, -0.4210053, -7.822258)
 
 [node name="Spider" parent="Enemies" unique_id=804887201 instance=ExtResource("3_amlj2")]

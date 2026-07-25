@@ -22,7 +22,10 @@ func _on_detection_body_entered(body: Node3D) -> void:
 		return
 	if body.name == "Turret":
 		return
+	if body.name == "Spider":
+		return
 	if body.is_in_group("player"):
 		# todo: damage
 		print("hit!")
+	print(body.name)
 	queue_free()
