@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/spiral_hole.glb-6cdf46102a65e181c1d8fe2ea5a68
 
 [params]
 
-nodes/root_type=""
+nodes/root_type="StaticBody3D"
 nodes/root_name=""
 nodes/root_script=null
 mesh_library/use_node_names_as_mesh_names=false
@@ -44,6 +44,9 @@ _subresources={
 "PATH:Spiral": {
 "generate/navmesh": 1,
 "generate/occluder": 1
+},
+"PATH:Spiral/StaticBody3D": {
+"node/node_type": "StaticBody3D"
 }
 }
 }

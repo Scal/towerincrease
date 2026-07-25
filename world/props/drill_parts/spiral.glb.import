@@ -44,6 +44,9 @@ _subresources={
 "PATH:Spiral_001": {
 "generate/navmesh": 1,
 "generate/occluder": 1
+},
+"PATH:Spiral_001/StaticBody3D": {
+"node/node_type": "StaticBody3D"
 }
 }
 }

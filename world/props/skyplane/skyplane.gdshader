@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode blend_mix, depth_draw_always, cull_disabled, diffuse_burley, specular_schlick_ggx;
+render_mode blend_mix, fog_disabled, depth_draw_always, cull_disabled, diffuse_burley, specular_schlick_ggx;
 
 uniform sampler2D screen_texture : hint_screen_texture, filter_linear_mipmap;
 
