@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://ckiim34qbn66p"]
+
+[ext_resource type="Texture2D" uid="uid://deovrhhcmowtp" path="res://icon.svg" id="1_8ll4v"]
+[ext_resource type="Script" uid="uid://bdtpaqgjyyd4o" path="res://entities/enemies/projectile/projectile.gd" id="1_e8drh"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8g5d2"]
+radius = 0.1
+
+[node name="Projectile" type="Node3D" unique_id=1398553215]
+script = ExtResource("1_e8drh")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1639951634]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+billboard = 1
+texture = ExtResource("1_8ll4v")
+
+[node name="CollisionArea" type="Area3D" parent="." unique_id=1703126380]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollisionArea" unique_id=1394774994]
+shape = SubResource("SphereShape3D_8g5d2")

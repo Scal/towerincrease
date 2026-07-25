@@ -7,6 +7,9 @@
 radius = 0.47080415
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_maq14"]
+radius = 10.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ywqtg"]
 radius = 15.0
 
 [node name="Fly" unique_id=657523278 instance=ExtResource("1_210si")]
@@ -42,6 +45,9 @@ shape = SubResource("SphereShape3D_maq14")
 
 [node name="UndetectionArea" type="Area3D" parent="." index="8" unique_id=1745914483]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="UndetectionArea" index="0" unique_id=1277797134]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="UndetectionArea" index="0" unique_id=1771257746]
 visible = false
-shape = SubResource("SphereShape3D_maq14")
+shape = SubResource("SphereShape3D_ywqtg")
+
+[node name="ProjectileSpawner" type="Node3D" parent="." index="9" unique_id=1497640362]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.052886784, -0.40133446, -0.7583198)
