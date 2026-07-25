@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://wm4n31u400e4"]
+
+[ext_resource type="PackedScene" uid="uid://ek2bt6ypfp51" path="res://world/props/drill_parts/spiral_broken.glb" id="1_mg0k8"]
+[ext_resource type="Material" uid="uid://b31e63ostk2qw" path="res://common/materials/metal_noise.material" id="2_r12ek"]
+[ext_resource type="PhysicsMaterial" uid="uid://b2237v1a1eupt" path="res://world/props/drill_parts/drill.phymat" id="3_hljpq"]
+[ext_resource type="PackedScene" uid="uid://d5hnbuqy4yon" path="res://entities/enemies/enemy_spawner.tscn" id="3_r12ek"]
+[ext_resource type="PackedScene" uid="uid://bygq5w3j0apof" path="res://world/props/drill_parts/industrial_ambient_random/industrual_ambient_random.tscn" id="4_i244j"]
+
+[node name="spiral_broken" unique_id=1314514436 instance=ExtResource("1_mg0k8")]
+
+[node name="Spiral_002" parent="." index="0" unique_id=1713170582]
+material_override = ExtResource("2_r12ek")
+
+[node name="StaticBody3D" parent="Spiral_002" index="0" unique_id=93954307]
+physics_material_override = ExtResource("3_hljpq")
+
+[node name="CollisionShape3D" parent="Spiral_002/StaticBody3D" index="0" unique_id=1276131168]
+visible = false
+
+[node name="NavigationRegion3D" parent="Spiral_002" index="1" unique_id=2054199688]
+visible = false
+
+[node name="OccluderInstance3D" parent="." index="1" unique_id=233533385]
+visible = false
+
+[node name="EnemySpawner" parent="." index="2" unique_id=1731548595 instance=ExtResource("3_r12ek")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.428925, 5.8702183, -79.42196)
+
+[node name="EnemySpawner2" parent="." index="3" unique_id=1432267105 instance=ExtResource("3_r12ek")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.2875795, 1.6245432, -94.57747)
+
+[node name="IndustrualAmbientRandom" parent="." index="4" unique_id=1975319695 instance=ExtResource("4_i244j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16622734, 6.04696, 3.2055016)

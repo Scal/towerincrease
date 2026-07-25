@@ -8,6 +8,14 @@ height = 1.8
 [node name="Player" type="CharacterBody3D" unique_id=94612561 groups=["player"]]
 script = ExtResource("1_symyc")
 
+[node name="LedgeCheckRay" type="RayCast3D" parent="." unique_id=64309664]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+target_position = Vector3(0, 0, -1)
+
+[node name="LedgeWallCheckRay" type="RayCast3D" parent="." unique_id=2040928139]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0297167, 0)
+target_position = Vector3(0, 0, -1)
+
 [node name="Head" type="Node3D" parent="." unique_id=577275024]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
@@ -16,6 +24,34 @@ target_position = Vector3(0, 0, -2)
 
 [node name="Eye" type="Camera3D" parent="Head" unique_id=2144059397]
 
+[node name="Hand" type="Node3D" parent="Head" unique_id=1206067018]
+
+[node name="GrappleRay" type="RayCast3D" parent="Head" unique_id=932976885]
+visible = false
+target_position = Vector3(0, 0, -60)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=656476774]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_3x8ub")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1778013766]
+transform = Transform3D(0.9921342, 0.0076244394, -0.124946095, 0, 0.9981434, 0.060908537, 0.1251785, -0.060429443, 0.9902922, -0.5684297, 0.5856246, 0)
+visible = false
+light_color = Color(0.88981223, 0, 0.20338777, 1)
+light_energy = 16.0
+shadow_enabled = true
+spot_range = 34.323
+spot_attenuation = -0.09
+spot_angle = 19.46
+spot_angle_attenuation = 1.673616
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="." unique_id=1027512501]
+transform = Transform3D(0.99314713, -0.0071184128, 0.11665354, 0, 0.9981434, 0.060908537, -0.11687052, -0.06049114, 0.9913032, 0.568, 0.586, 0)
+visible = false
+light_color = Color(0.88981223, 0, 0.20338777, 1)
+light_energy = 16.0
+shadow_enabled = true
+spot_range = 34.323
+spot_attenuation = -0.09
+spot_angle = 19.46
+spot_angle_attenuation = 1.673616

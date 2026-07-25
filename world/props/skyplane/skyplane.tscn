@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://dukrm01682an7"]
+
+[ext_resource type="Shader" uid="uid://173hq1roxj4d" path="res://world/props/skyplane/skyplane.gdshader" id="1_xt54x"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vs4cv"]
+render_priority = 0
+shader = ExtResource("1_xt54x")
+shader_parameter/impact_azimuth_deg = 0.0
+shader_parameter/impact_elevation_deg = 90.0
+shader_parameter/damage_progress = 0.1570000074575
+shader_parameter/progress_wobble = 0.25200001197
+shader_parameter/smoothness_min = 0.0010000000475
+shader_parameter/smoothness_max = 0.80000001192093
+shader_parameter/cell_density = 17.369000587527502
+shader_parameter/center_density_mult = 2.678000079705
+shader_parameter/density_falloff = 2.0
+shader_parameter/radial_stretch = 3.0
+shader_parameter/crack_thickness = 0.0130000006175
+shader_parameter/wobble_strength = 0.30800001463
+shader_parameter/chromatic_aberration = 0.418000019855
+shader_parameter/glitch_quantization = 43.5250020674375
+shader_parameter/scanline_tearing = 0.0430000020425
+shader_parameter/digital_grid_glow = 5.0
+shader_parameter/crack_color = Color(0, 0.3450181, 0.6955091, 1)
+shader_parameter/dead_pixel_density = 0.34400001634
+shader_parameter/static_noise_strength = 0.126000005985
+shader_parameter/pulse_color = Color(0.9528462, 0, 0.2752161, 1)
+shader_parameter/pulse_intensity = 1.370000065075
+shader_parameter/pulse_speed = 7.022000333545
+shader_parameter/pulse_frequency = 9.4270004002825
+shader_parameter/facet_tilt = 1.7380000825550002
+shader_parameter/normal_bump = 10.0
+shader_parameter/impact_seed = 0.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_xt54x"]
+flip_faces = true
+radius = 1000.0
+height = 500.0
+radial_segments = 12
+rings = 12
+is_hemisphere = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" unique_id=1617102367]
+transform = Transform3D(-1, -1.509958e-07, 0, -1.509958e-07, 1, 8.742278e-08, -1.3200472e-14, 8.742278e-08, -1, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_vs4cv")
+mesh = SubResource("SphereMesh_xt54x")

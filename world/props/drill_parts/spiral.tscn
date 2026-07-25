@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://3tb3addro7mw"]
+
+[ext_resource type="PackedScene" uid="uid://cfq6tue28mdpt" path="res://world/props/drill_parts/spiral.glb" id="1_8om1h"]
+[ext_resource type="Material" uid="uid://b31e63ostk2qw" path="res://common/materials/metal_noise.material" id="2_5rtb7"]
+[ext_resource type="PhysicsMaterial" uid="uid://b2237v1a1eupt" path="res://world/props/drill_parts/drill.phymat" id="3_2d0nm"]
+[ext_resource type="PackedScene" uid="uid://d5hnbuqy4yon" path="res://entities/enemies/enemy_spawner.tscn" id="3_uxduu"]
+[ext_resource type="PackedScene" uid="uid://bygq5w3j0apof" path="res://world/props/drill_parts/industrial_ambient_random/industrual_ambient_random.tscn" id="4_rips6"]
+
+[node name="spiral" unique_id=549788667 instance=ExtResource("1_8om1h")]
+
+[node name="Spiral_001" parent="." index="0" unique_id=855363025]
+material_override = ExtResource("2_5rtb7")
+
+[node name="StaticBody3D" parent="Spiral_001" index="0" unique_id=467010807]
+physics_material_override = ExtResource("3_2d0nm")
+
+[node name="CollisionShape3D" parent="Spiral_001/StaticBody3D" index="0" unique_id=1278523985]
+visible = false
+
+[node name="NavigationRegion3D" parent="Spiral_001" index="1" unique_id=59789223]
+visible = false
+
+[node name="OccluderInstance3D" parent="." index="1" unique_id=1747422822]
+visible = false
+
+[node name="EnemySpawner" parent="." index="2" unique_id=1731548595 instance=ExtResource("3_uxduu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.390494, 2.5439453, -80.98572)
+
+[node name="EnemySpawner2" parent="." index="3" unique_id=1959968146 instance=ExtResource("3_uxduu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53.262352, 6.6475334, -73.56702)
+
+[node name="EnemySpawner3" parent="." index="4" unique_id=1147922915 instance=ExtResource("3_uxduu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.272114, 3.3640175, -93.38834)
+
+[node name="IndustrualAmbientRandom" parent="." index="5" unique_id=1975319695 instance=ExtResource("4_rips6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8874779, 6.7605534, 6.9387436)
