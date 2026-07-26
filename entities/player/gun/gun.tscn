@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://dbjm7sho6ye71"]
+
+[ext_resource type="PackedScene" uid="uid://khkkvsefjb6m" path="res://entities/player/gun/gun.blend" id="1_bxyfu"]
+[ext_resource type="Script" uid="uid://cr0rj4oirh3cx" path="res://entities/player/gun/gun.gd" id="2_b73h6"]
+
+[node name="Gun" unique_id=131624342 instance=ExtResource("1_bxyfu")]
+script = ExtResource("2_b73h6")
+
+[node name="TracerMesh" type="MeshInstance3D" parent="." index="0" unique_id=2073903657]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1488999, -0.17684075)
+
+[node name="coil" parent="." index="1" unique_id=807840442]
+transform = Transform3D(-0.11672658, 0, 1.0204562e-08, 0, 0.11672658, 0, -1.0204562e-08, 0, -0.11672658, -0.005341508, -0.0059725195, 0.16698146)
+
+[node name="gun" parent="." index="2" unique_id=241037548]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -0.0053415345, 0, 0.47297844)
+
+[node name="hook" parent="." index="3" unique_id=1746538066]
+transform = Transform3D(-0.11672658, 0, 1.0204562e-08, 0, 0.11672658, 0, -1.0204562e-08, 0, -0.11672658, -0.0053415042, 0.09395714, 0.124709636)
+
+[node name="rope" parent="." index="4" unique_id=2147056075]
+transform = Transform3D(-0.11672658, 0, 1.0204562e-08, 0, 0.11672658, 0, -1.0204562e-08, 0, -0.11672658, -0.005341508, -0.005972501, 0.16698149)
+
+[node name="string" parent="." index="5" unique_id=2048203510]
+transform = Transform3D(-0.11672658, 0, 1.0204562e-08, 0, 0.11672658, 0, -1.0204562e-08, 0, -0.11672658, 0.008012271, 0.036141645, 0.25079504)
+
+[node name="RopeMesh" type="MeshInstance3D" parent="." index="6" unique_id=607454259]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.092954546, 0.11193618)
+
+[node name="RayCast3D" type="RayCast3D" parent="." index="7" unique_id=370124113]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1488999, -0.17684075)
+target_position = Vector3(0, 0, -100)
+
+[node name="RopeMuzzle" type="Marker3D" parent="." index="8" unique_id=1786042938]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.092545584, 0.11497468)
+
+[node name="Muzzle" type="Marker3D" parent="." index="9" unique_id=1307093167]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1488999, -0.17684075)
+
+[node name="MuzzleLight" type="OmniLight3D" parent="Muzzle" index="0" unique_id=1057877998]
+light_color = Color(1, 0.23099247, 0.17670664, 1)
+light_energy = 2.896
+shadow_enabled = true
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." index="10" unique_id=96038056]
