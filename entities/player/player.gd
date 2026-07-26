@@ -1,4 +1,8 @@
+# res://player/player.gd
 extends CharacterBody3D
+
+signal health_changed(current_health: float, max_health: float)
+signal player_died
 
 const WALK_SPEED: float = 10.0
 const RUN_SPEED: float = 20.0
@@ -6,12 +10,22 @@ const ACCEL_GROUND: float = 60.0
 const ACCEL_AIR: float = 15.0
 const FRICTION_GROUND: float = 40.0
 const FRICTION_AIR: float = 2.0
-const JUMP_VELOCITY: float = 7.0
-const WALL_RUN_GRAVITY: float = 2.0
-const LEDGE_CLIMB_SPEED: float = 5.0
-const GRAPPLE_PULL_SPEED: float = 30.0
-const GRAPPLE_STOP_DIST: float = 2.5
+const JUMP_VELOCITY: float = 9.0
 
+# Health & Regeneration
+@export_group("Health")
+@export var max_health: float = 100.0
+@export var health_regen_rate: float = 5.0 # HP per second
+@export var regen_delay: float = 3.0 # Delay before regen starts after taking damage
+# Physics & Gravity
+@export_group("Physics & Gravity")
+@export var fall_gravity_multiplier: float = 2.2
+@export var wall_run_gravity: float = 2.0
+# Ground Pound / Slam Mechanics
+@export_group("Slam Mechanics")
+@export var slam_pop_velocity: float = 3.5
+@export var slam_down_speed: float = 40.0
+@export var slam_damage_multiplier: float = 2.5
 @export var sensitivity: float = 2.8
 @export_group("Headbob")
 @export var headbob_enabled: bool = true
@@ -23,10 +37,14 @@ const GRAPPLE_STOP_DIST: float = 2.5
 @export var headbob_sprint_amp_x: float = 0.04
 @export var headbob_reset_speed: float = 8.0
 
+var current_health: float = 100.0
 var is_wall_running: bool = false
 var is_climbing_ledge: bool = false
 var is_grappling: bool = false
+var is_slamming: bool = false
 var grapple_point: Vector3 = Vector3.ZERO
+var _time_since_last_damage: float = 0.0
+var _slam_charge_speed: float = 0.0
 var _headbob_cycle: float = 0.0
 var _cam_origin_pos: Vector3 = Vector3.ZERO
 var _sprint_progress: float = 0.0
@@ -44,11 +62,15 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	camera.current = true
 
+	# Target group for rockets/enemies
+	add_to_group("player")
+
+	current_health = max_health
+	health_changed.emit(current_health, max_health)
+
 	floor_stop_on_slope = true
 	floor_block_on_wall = true
 	floor_snap_length = 0.4
-	platform_on_leave = CharacterBody3D.PLATFORM_ON_LEAVE_ADD_VELOCITY
-	platform_floor_layers = 0xFFFFFFFF
 
 	_cam_origin_pos = camera.position
 
@@ -66,6 +88,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	_update_headbob(delta)
+	_process_health_regen(delta)
 
 
 func _physics_process(delta: float) -> void:
@@ -79,24 +102,39 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		return
 
+	# Handle Gravity
 	if not is_on_floor():
 		if is_wall_running:
-			velocity.y = move_toward(velocity.y, -WALL_RUN_GRAVITY, delta * 10.0)
+			velocity.y = move_toward(velocity.y, -wall_run_gravity, delta * 10.0)
+		elif is_slamming:
+			velocity.y = move_toward(velocity.y, -slam_down_speed, delta * 120.0)
 		else:
-			velocity += get_gravity() * delta
+			var base_grav := get_gravity()
+			var mult := fall_gravity_multiplier if velocity.y < 0 else 1.0
+			velocity += base_grav * mult * delta
+	else:
+		if is_slamming:
+			_handle_slam_impact()
+			is_slamming = false
 
+	# Jump logic
 	if Input.is_action_just_pressed("jump"):
 		if is_on_floor():
 			velocity.y = JUMP_VELOCITY
+			is_slamming = false
 		elif is_wall_running:
 			velocity.y = JUMP_VELOCITY
 			velocity += get_wall_normal() * JUMP_VELOCITY
 			is_wall_running = false
 
+	# Crouch Slam Trigger
+	if Input.is_action_just_pressed("crouch") and not is_on_floor() and not is_slamming:
+		_start_slam()
+
 	_check_wall_run()
 	_check_ledge_mantle()
-
 	_handle_movement(delta)
+
 	move_and_slide()
 
 
@@ -115,7 +153,38 @@ func _unhandled_input(event: InputEvent) -> void:
 			weapon.toggle_grapple()
 
 
+func take_damage(amount: float) -> void:
+	if current_health <= 0:
+		return
+
+	current_health = maxf(0.0, current_health - amount)
+	_time_since_last_damage = 0.0
+	health_changed.emit(current_health, max_health)
+
+	if current_health <= 0:
+		_die()
+
+
+func _process_health_regen(delta: float) -> void:
+	_time_since_last_damage += delta
+
+	if _time_since_last_damage >= regen_delay and current_health < max_health:
+		current_health = move_toward(current_health, max_health, health_regen_rate * delta)
+		health_changed.emit(current_health, max_health)
+
+
+func _die() -> void:
+	player_died.emit()
+	# TODO: Replace with your game over scene/logic
+	get_tree().reload_current_scene()
+
+
 func _handle_movement(delta: float) -> void:
+	if is_slamming:
+		velocity.x = move_toward(velocity.x, 0.0, FRICTION_AIR * delta)
+		velocity.z = move_toward(velocity.z, 0.0, FRICTION_AIR * delta)
+		return
+
 	var is_running := Input.is_action_pressed("run")
 	var target_sprint := 1.0 if is_running else 0.0
 	_sprint_progress = move_toward(_sprint_progress, target_sprint, delta * 5.0)
@@ -135,7 +204,27 @@ func _handle_movement(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0.0, friction * delta)
 
 
+func _start_slam() -> void:
+	is_slamming = true
+	velocity.y = slam_pop_velocity
+
+
+func _handle_slam_impact() -> void:
+	var impact_speed := absf(_slam_charge_speed)
+	var damage := impact_speed * slam_damage_multiplier
+
+	for i in get_slide_collision_count():
+		var col := get_slide_collision(i)
+		var collider := col.get_collider()
+
+		if collider and collider.has_method("take_damage"):
+			collider.take_damage(damage)
+
+
 func _update_headbob(delta: float) -> void:
+	if not is_on_floor():
+		_slam_charge_speed = velocity.y
+
 	if not headbob_enabled:
 		camera.position = camera.position.lerp(_cam_origin_pos, delta * headbob_reset_speed)
 		return
@@ -163,6 +252,7 @@ func _update_headbob(delta: float) -> void:
 func _check_wall_run() -> void:
 	if is_on_wall_only() and velocity.y < 0 and Input.is_action_pressed("forward"):
 		is_wall_running = true
+		is_slamming = false
 	else:
 		is_wall_running = false
 
@@ -171,10 +261,11 @@ func _check_ledge_mantle() -> void:
 	if is_on_wall() and ledge_wall_check.is_colliding() and not ledge_check.is_colliding():
 		if Input.is_action_pressed("forward") or Input.is_action_pressed("jump"):
 			is_climbing_ledge = true
+			is_slamming = false
 
 
 func _process_ledge_climb(_delta: float) -> void:
-	velocity = Vector3.UP * LEDGE_CLIMB_SPEED
+	velocity = Vector3.UP * 5.0
 	if not ledge_wall_check.is_colliding():
 		velocity = -transform.basis.z * WALK_SPEED + Vector3.UP * 2.0
 		is_climbing_ledge = false
@@ -183,9 +274,9 @@ func _process_ledge_climb(_delta: float) -> void:
 func _process_grapple(delta: float) -> void:
 	var dir := (grapple_point - global_position).normalized()
 
-	velocity = velocity.lerp(dir * GRAPPLE_PULL_SPEED, delta * 8.0)
+	velocity = velocity.lerp(dir * 30.0, delta * 8.0)
 
-	if global_position.distance_to(grapple_point) < GRAPPLE_STOP_DIST or is_on_wall():
+	if global_position.distance_to(grapple_point) < 2.5 or is_on_wall():
 		if weapon and weapon.has_method("stop_grapple"):
 			weapon.stop_grapple()
 		else:

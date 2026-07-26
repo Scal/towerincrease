@@ -1,3 +1,4 @@
+# res://weapons/gun.gd
 extends Node3D
 
 signal grapple_started(target_point: Vector3)
@@ -10,6 +11,10 @@ enum HookState { IDLE, FLYING, ATTACHED, RETRACTING }
 @export var max_fire_distance: float = 100.0
 @export var impact_force: float = 10.0
 @export var shoot_sound: AudioStream
+@export_group("Procedural Recoil")
+@export var recoil_kickback: float = 0.15 # Push back along Z axis
+@export var recoil_pitch: float = 0.1 # Pitch tilt up (in radians)
+@export var recoil_recover_speed: float = 12.0 # Speed of returning back
 @export_group("Grapple Hook")
 @export var hook_max_distance: float = 40.0
 @export var hook_fly_speed: float = 80.0
@@ -21,6 +26,9 @@ var _hook_rest_transform: Transform3D
 var _rope_immediate_mesh: ImmediateMesh
 var _tracer_immediate_mesh: ImmediateMesh
 var _tracer_timer: float = 0.0
+# Initial transforms for procedural recoil return
+var _weapon_default_pos: Vector3 = Vector3.ZERO
+var _weapon_default_rot: Vector3 = Vector3.ZERO
 
 @onready var hook_mesh: MeshInstance3D = $hook
 @onready var muzzle: Marker3D = $Muzzle
@@ -33,6 +41,10 @@ var _tracer_timer: float = 0.0
 
 
 func _ready() -> void:
+	# Save resting transforms for procedural recoil calculations
+	_weapon_default_pos = position
+	_weapon_default_rot = rotation
+
 	if hook_mesh:
 		_hook_rest_transform = hook_mesh.transform
 
@@ -67,10 +79,12 @@ func _process(delta: float) -> void:
 	_update_hook(delta)
 	_draw_rope()
 	_update_effects(delta)
+	_update_recoil(delta)
 
 
 func shoot() -> void:
 	_play_shoot_sound()
+	_apply_recoil_impulse()
 
 	var hit_point: Vector3
 	if ray_cast.is_colliding():
@@ -107,6 +121,20 @@ func toggle_grapple() -> void:
 func stop_grapple() -> void:
 	if _hook_state != HookState.IDLE:
 		_detach_hook()
+
+
+func _apply_recoil_impulse() -> void:
+	# Instantly apply recoil displacement
+	position.z += recoil_kickback
+	rotation.x += recoil_pitch
+
+
+func _update_recoil(delta: float) -> void:
+	# Smoothly interpolate back to default position and rotation
+	position = position.lerp(_weapon_default_pos, delta * recoil_recover_speed)
+	rotation.x = lerpf(rotation.x, _weapon_default_rot.x, delta * recoil_recover_speed)
+	rotation.y = lerpf(rotation.y, _weapon_default_rot.y, delta * recoil_recover_speed)
+	rotation.z = lerpf(rotation.z, _weapon_default_rot.z, delta * recoil_recover_speed)
 
 
 func _update_hook(delta: float) -> void:
