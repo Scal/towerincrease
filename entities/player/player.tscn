@@ -21,7 +21,7 @@ target_position = Vector3(0, 0, -1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Hand" type="Node3D" parent="Head" unique_id=1206067018]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.323, -0.302, -0.97)
+transform = Transform3D(0.9799247, -0.19936793, 0, 0.19936793, 0.9799247, 0, 0, 0, 1, 0.277, -0.258, -0.898)
 
 [node name="Gun" parent="Head/Hand" unique_id=131624342 instance=ExtResource("2_abrql")]
 
