@@ -20,6 +20,10 @@ const GRAPPLE_MAX_DIST: float = 30.0
 @export var headbob_sprint_amp_x: float = 0.04
 @export var headbob_reset_speed: float = 8.0
 
+var is_starting: bool = true
+var is_dead: bool = false
+var is_victorious: bool = false
+var timer: float = 60.0
 var is_wall_running: bool = false
 var is_climbing_ledge: bool = false
 var is_grappling: bool = false
@@ -36,6 +40,12 @@ var _sprint_progress: float = 0.0
 @onready var ledge_check: RayCast3D = $LedgeCheckRay
 @onready var ledge_wall_check: RayCast3D = $LedgeWallCheckRay
 @onready var grapple_ray: RayCast3D = $Head/GrappleRay
+@onready var red_overlay: ColorRect = $RedOverlay
+@onready var timer_ui: Label = $Timer
+@onready var start_screen: Control = $StartScreen
+@onready var victory_screen: Control = $VictoryScreen
+@onready var death_screen: Control = $DeathScreen
+
 
 
 func _ready() -> void:
@@ -52,7 +62,24 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if is_starting:
+		if Input.is_action_just_pressed("jump"):
+			start_screen.visible = false
+			is_starting = false
+		return
+	
+	if is_victorious:
+		if Input.is_action_just_pressed("jump"):
+			get_tree().reload_current_scene()
+		return
+		
+	if is_dead:
+		if Input.is_action_just_pressed("jump"):
+			get_tree().reload_current_scene()
+		return
+	
 	_update_headbob(delta)
+	_timer_processing(delta)
 
 
 func _physics_process(delta: float) -> void:
@@ -225,3 +252,21 @@ func _light_punch() -> void:
 
 func _heavy_punch() -> void:
 	pass
+
+func damage(damage: float) -> void:
+	timer -= damage
+	red_overlay.color.a = 0.05 * damage
+
+func _timer_processing(delta: float) -> void:
+	if red_overlay.color.a > 0:
+		red_overlay.color.a -= delta
+	timer -= delta
+	timer_ui.text = "%.1f" % timer
+	
+	if is_zero_approx(timer) or timer < 0 or global_position.y < -50.0:
+		death_screen.visible = true
+		is_dead = true
+
+func victory() -> void:
+	victory_screen.visible = true
+	is_victorious = true

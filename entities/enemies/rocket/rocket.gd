@@ -4,6 +4,8 @@ var player: Node3D = null
 var speed := 8.0
 var player_height := Vector3(0, 1.5, 0)
 var turning_speed := 4.0
+var death_time := 10.0
+var death_timer := 0.0
 
 @onready var collision_area: Area3D = $CollisionArea
 
@@ -19,6 +21,10 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	death_timer += delta
+	if death_timer > death_time:
+		queue_free()
+	
 	var target_position := player.global_position + player_height
 
 	var target_transform := transform.looking_at(target_position, Vector3.UP)
@@ -34,8 +40,7 @@ func _on_detection_collision(body: Node3D) -> void:
 	if body.is_in_group("enemies"):
 		return
 	if body.is_in_group("player"):
-		#todo: damage
-		print("rocket hits!")
+		body.damage(10.0)
 	queue_free()
 
 func set_player(body: Node3D) -> void:

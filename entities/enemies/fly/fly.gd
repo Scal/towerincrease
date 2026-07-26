@@ -9,7 +9,7 @@ var max_tilt_angle := PI/24
 var tilt_speed := PI/48
 var optimal_attack_distance := 5.0
 var optimal_attack_eps := 1.0
-var shooting_interval := 5.0
+var shooting_interval := 3.0
 var last_shooting_time = 0.0
 var projectile := load("res://entities/enemies/projectile/projectile.tscn")
 

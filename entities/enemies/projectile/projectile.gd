@@ -3,6 +3,7 @@ extends Node3D
 var direction := Vector3(0, 0, 0)
 var speed := 5.0
 var world_border := 1000.0
+var damage := 5.0
 
 @onready var collision_area: Area3D = $CollisionArea
 
@@ -26,5 +27,5 @@ func _on_detection_body_entered(body: Node3D) -> void:
 		return
 	if body.is_in_group("player"):
 		# todo: damage
-		print("hit!")
+		body.damage(damage)
 	queue_free()

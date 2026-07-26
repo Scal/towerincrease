@@ -6,10 +6,10 @@ var turning_speed := 3.0
 var attack_angle := PI/4
 var max_tilt_angle := PI/4
 var tilt_speed := PI/12
-var shooting_interval := 5.0
+var shooting_interval := 3.0
 var rapid_fire_interval := .5
 var spawner_index = 0
-var last_shooting_time = 0.0
+var last_shooting_time = 3.0
 var projectile := load("res://entities/enemies/projectile/projectile.tscn")
 
 @onready var detection_area: Area3D = $DetectionArea
