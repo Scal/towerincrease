@@ -2,9 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://khkkvsefjb6m" path="res://entities/player/gun/gun.blend" id="1_bxyfu"]
 [ext_resource type="Script" uid="uid://cr0rj4oirh3cx" path="res://entities/player/gun/gun.gd" id="2_b73h6"]
+[ext_resource type="AudioStream" uid="uid://dgewetioaa8sc" path="res://common/audio/metal_hit_4.ogg" id="3_mdfql"]
 
 [node name="Gun" unique_id=131624342 instance=ExtResource("1_bxyfu")]
 script = ExtResource("2_b73h6")
+shoot_sound = ExtResource("3_mdfql")
 
 [node name="TracerMesh" type="MeshInstance3D" parent="." index="0" unique_id=2073903657]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1488999, -0.17684075)

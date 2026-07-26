@@ -16,6 +16,7 @@ signal died
 @export var undetection_area: Area3D
 @export var projectile_spawner: Node3D
 @export var los_raycast: RayCast3D
+@export var die_audio: AudioStreamPlayer3D
 
 var health: float
 var player: Node3D = null
@@ -51,8 +52,25 @@ func take_damage(amount: float) -> void:
 
 func _die() -> void:
 	died.emit()
+	_play_death_sound()
 	_explode_into_debris()
 	queue_free()
+
+
+func _play_death_sound() -> void:
+	if not is_instance_valid(die_audio) or not die_audio.stream:
+		return
+
+	# Detach audio node so queue_free() on enemy won't destroy it immediately
+	var sound_node := die_audio
+	sound_node.get_parent().remove_child(sound_node)
+	get_tree().current_scene.add_child(sound_node)
+
+	sound_node.global_position = global_position
+	sound_node.play()
+
+	# Auto-cleanup sound node after stream finishes
+	sound_node.finished.connect(sound_node.queue_free)
 
 
 func _explode_into_debris() -> void:
