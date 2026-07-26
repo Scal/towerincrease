@@ -9,7 +9,7 @@ var max_tilt_angle := PI/24
 var tilt_speed := PI/48
 var optimal_attack_distance := 5.0
 var optimal_attack_eps := 1.0
-var shooting_interval := 3.0
+var shooting_interval := 5.0
 var last_shooting_time = 0.0
 var projectile := load("res://entities/enemies/projectile/projectile.tscn")
 
@@ -20,7 +20,6 @@ var projectile := load("res://entities/enemies/projectile/projectile.tscn")
 
 
 func _ready() -> void:
-	add_to_group("enemies")
 	if detection_area:
 		detection_area.body_entered.connect(_on_detection_body_entered)
 	else:
@@ -93,9 +92,9 @@ func _shoot(delta: float) -> void:
 	
 	if to_player_angle < attack_angle:
 		var projectile_instance = projectile.instantiate()
-		scene.add_child(projectile_instance)
 		projectile_instance.global_position = projectile_spawner.global_position
 		projectile_instance.direction = looking_direction
+		scene.add_child(projectile_instance)
 		return
 
 

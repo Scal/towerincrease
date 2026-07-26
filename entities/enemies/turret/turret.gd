@@ -1,4 +1,4 @@
-extends Node3D
+extends StaticBody3D
 
 var player: Node3D = null
 var player_height := Vector3(0, 1.5, 0)
@@ -6,24 +6,18 @@ var turning_speed := 3.0
 var attack_angle := PI/4
 var max_tilt_angle := PI/4
 var tilt_speed := PI/12
-var shooting_interval := 3.0
-var rapid_fire_interval := .5
-var spawner_index = 0
-var last_shooting_time = 3.0
+var shooting_interval := 5.0
+var last_shooting_time = 0.0
 var projectile := load("res://entities/enemies/projectile/projectile.tscn")
 
 @onready var detection_area: Area3D = $DetectionArea
 @onready var undetection_area: Area3D = $UndetectionArea
-@onready var projectile_spawners: Array = [$head/ProjectileSpawner1,
-										$head/ProjectileSpawner2,
-										$head/ProjectileSpawner3,
-										$head/ProjectileSpawner4]
+@onready var projectile_spawner: Node3D = $head/ProjectileSpawner
 @onready var head: Node3D = $head
 @onready var scene: Node3D = null
 
 
 func _ready() -> void:
-	add_to_group("enemies")
 	if detection_area:
 		detection_area.body_entered.connect(_on_detection_body_entered)
 	else:
@@ -47,8 +41,9 @@ func _move(delta: float) -> void:
 			rotation.x -= tilt_speed * delta * sign(rotation.x)
 		return
 
-	var target_position := to_local((head.global_position * 2) - player.global_position)#to_local(player.global_position)
-	
+	var target_position := player.global_position
+	var to_player_direction := (target_position - global_position).normalized()
+
 	var target_transform := head.transform.looking_at(target_position, Vector3.UP)
 	head.transform = head.transform.interpolate_with(target_transform, turning_speed * delta)
 	
@@ -60,10 +55,7 @@ func _shoot(delta: float) -> void:
 		return
 	
 	last_shooting_time += delta
-	if spawner_index == 0 and last_shooting_time < shooting_interval:
-		return
-		
-	if spawner_index > 0 and last_shooting_time < rapid_fire_interval:
+	if last_shooting_time < shooting_interval:
 		return
 	
 	last_shooting_time = 0.0
@@ -76,11 +68,9 @@ func _shoot(delta: float) -> void:
 	
 	if to_player_angle < attack_angle:
 		var projectile_instance = projectile.instantiate()
-		spawner_index += 1
-		spawner_index %= projectile_spawners.size()
+		projectile_instance.global_position = projectile_spawner.global_position
 		projectile_instance.direction = looking_direction
 		scene.add_child(projectile_instance)
-		projectile_instance.global_position = projectile_spawners[spawner_index].global_position
 		return
 
 

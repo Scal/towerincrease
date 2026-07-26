@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://b4cror1if8tjn"]
+[gd_scene format=4 uid="uid://c1qf7vam8ntog"]
 
 [ext_resource type="Texture2D" uid="uid://dnsjyrr1i4j07" path="res://entities/enemies/turret/textures/128_turret.png" id="2_mnem0"]
 [ext_resource type="Script" uid="uid://dl0pdmvo3lri1" path="res://entities/enemies/turret/turret.gd" id="2_owtal"]
@@ -169,17 +169,8 @@ mesh = SubResource("ArrayMesh_l7i5n")
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_sxj4n")
 
-[node name="ProjectileSpawner1" type="Node3D" parent="head" unique_id=224644769]
+[node name="ProjectileSpawner" type="Node3D" parent="head" unique_id=224644769]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.26254928, 0.9436331, 1.1723706)
-
-[node name="ProjectileSpawner2" type="Node3D" parent="head" unique_id=1119718658]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.25829703, 0.9436331, 1.1723706)
-
-[node name="ProjectileSpawner3" type="Node3D" parent="head" unique_id=359881129]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.26254928, 0.7829596, 1.1723706)
-
-[node name="ProjectileSpawner4" type="Node3D" parent="head" unique_id=1215025559]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.26018304, 0.78238344, 1.1723706)
 
 [node name="legs" type="MeshInstance3D" parent="." unique_id=1833475754]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
