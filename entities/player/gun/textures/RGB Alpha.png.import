@@ -2,17 +2,18 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bkldd8afbre53"
-path.s3tc="res://.godot/imported/64_rocket.png-78f25259906e7e85a79460ea6d1a59ca.s3tc.ctex"
+uid="uid://dpfxrkvcxuupp"
+path.s3tc="res://.godot/imported/RGB Alpha.png-6cfb6406987ddda2f3f651c2cf5500c5.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={}
 
 [deps]
 
-source_file="res://entities/enemies/rocket/textures/64_rocket.png"
-dest_files=["res://.godot/imported/64_rocket.png-78f25259906e7e85a79460ea6d1a59ca.s3tc.ctex"]
+source_file="res://entities/player/gun/textures/RGB Alpha.png"
+dest_files=["res://.godot/imported/RGB Alpha.png-6cfb6406987ddda2f3f651c2cf5500c5.s3tc.ctex"]
 
 [params]
 

@@ -55,3 +55,125 @@ spot_range = 34.323
 spot_attenuation = -0.09
 spot_angle = 19.46
 spot_angle_attenuation = 1.673616
+
+[node name="Timer" type="Label" parent="." unique_id=647564339]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -16.0
+offset_right = 16.0
+offset_bottom = 23.0
+grow_horizontal = 2
+scale = Vector2(2, 2)
+text = "60.0"
+horizontal_alignment = 1
+
+[node name="RedOverlay" type="ColorRect" parent="." unique_id=1392065471]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0.19607843, 0.19607843, 0)
+
+[node name="DeathScreen" type="Control" parent="." unique_id=1741469092]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GreyBackground" type="ColorRect" parent="DeathScreen" unique_id=944936378]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.23529412)
+
+[node name="Label" type="Label" parent="DeathScreen" unique_id=1606929929]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "О нет! The Tower is completed. Shade, aber es gibt Hoffung.
+Press Space to restart"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VictoryScreen" type="Control" parent="." unique_id=288546030]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GreyBackground" type="ColorRect" parent="VictoryScreen" unique_id=473098844]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.23529412)
+
+[node name="Label" type="Label" parent="VictoryScreen" unique_id=215157944]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "You did it, we're saved from God's wrath!
+Good job, kiddo, but I'm shure you can do this faster
+Press Space to restart"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartScreen" type="Control" parent="." unique_id=1615202183]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GreyBackground" type="ColorRect" parent="StartScreen" unique_id=381622696]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.23529412)
+
+[node name="Label" type="Label" parent="StartScreen" unique_id=1017109480]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "These lunatics are about to build the Tower of Babel 2.0!
+You should not let this happened
+Get to the top of the tower before it's not too late
+Press Space to start"
+horizontal_alignment = 1
+vertical_alignment = 1

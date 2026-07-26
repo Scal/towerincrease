@@ -1,92 +1,284 @@
 [gd_scene format=3 uid="uid://i5qnf4mkbxm1"]
 
-[ext_resource type="PackedScene" uid="uid://dukrm01682an7" path="res://world/props/skyplane/skyplane.tscn" id="1_amlj2"]
 [ext_resource type="PackedScene" uid="uid://dxa7frursqoxy" path="res://entities/player/player.tscn" id="1_b3ony"]
-[ext_resource type="Script" uid="uid://bpvq1yiimm2bp" path="res://world/levels/world.gd" id="1_bgq80"]
-[ext_resource type="Script" uid="uid://byoc6vlyqi7pj" path="res://world/levels/music_player.gd" id="2_15ww5"]
-[ext_resource type="AudioStream" uid="uid://bcv1ef6iqn0n6" path="res://common/audio/summer_incident.mp3" id="3_qmul6"]
-[ext_resource type="Script" uid="uid://blxjfy1mw7nco" path="res://world/levels/drill.gd" id="7_ecds7"]
-[ext_resource type="PackedScene" uid="uid://3tb3addro7mw" path="res://world/props/drill_parts/spiral.tscn" id="8_74oec"]
-[ext_resource type="PackedScene" uid="uid://dvuydxmgrwogs" path="res://world/props/drill_parts/spiral_hole.tscn" id="9_bgq80"]
-[ext_resource type="PackedScene" uid="uid://wm4n31u400e4" path="res://world/props/drill_parts/spiral_broken.tscn" id="11_7xuvk"]
+[ext_resource type="PackedScene" uid="uid://b4cror1if8tjn" path="res://entities/enemies/turret/turret.tscn" id="2_1xuw6"]
+[ext_resource type="PackedScene" uid="uid://dclunake2c433" path="res://entities/enemies/fly/fly.tscn" id="2_w5gid"]
+[ext_resource type="PackedScene" uid="uid://cdpr8h3imvgso" path="res://entities/enemies/spider/spider.tscn" id="3_amlj2"]
+[ext_resource type="PackedScene" uid="uid://c4lsyeegw8306" path="res://world/levels/victory_collider.tscn" id="5_amlj2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_m637p"]
 sky_top_color = Color(0.16277725, 0.39346677, 0.48871523, 1)
 sky_horizon_color = Color(0.45141062, 0.5035489, 0.52113336, 1)
 ground_bottom_color = Color(0.123719044, 0.10158274, 0.076672085, 1)
 ground_horizon_color = Color(0.45141062, 0.5035489, 0.52113336, 1)
+energy_multiplier = 0.4
 
 [sub_resource type="Sky" id="Sky_od3m6"]
 sky_material = SubResource("ProceduralSkyMaterial_m637p")
-radiance_size = 4
 
 [sub_resource type="Environment" id="Environment_748nt"]
 background_mode = 2
 sky = SubResource("Sky_od3m6")
-ssao_enabled = true
 glow_enabled = true
-fog_enabled = true
-fog_light_color = Color(0.7911752, 0.82726246, 0.7852532, 1)
-fog_light_energy = 0.05
-fog_sun_scatter = 0.02
-fog_aerial_perspective = 0.65
-volumetric_fog_density = 0.0022
-volumetric_fog_albedo = Color(0.8234244, 0.59423196, 0.5439221, 1)
-volumetric_fog_anisotropy = 0.87
 
-[sub_resource type="QuadMesh" id="QuadMesh_3x8ub"]
-size = Vector2(1000, 1000)
-orientation = 1
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_od3m6"]
+frequency = 0.022
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_m637p"]
+noise = SubResource("FastNoiseLite_od3m6")
+seamless = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_symyc"]
+albedo_color = Color(0.25211272, 0.25211275, 0.25211272, 1)
+albedo_texture = SubResource("NoiseTexture2D_m637p")
+metallic = 1.0
+uv1_scale = Vector3(0.413, 0.413, 0.413)
+uv1_triplanar = true
 
 [node name="World" type="Node3D" unique_id=1328101134]
-script = ExtResource("1_bgq80")
 
-[node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1872293741]
-bus = &"Music"
-script = ExtResource("2_15ww5")
-default_track = ExtResource("3_qmul6")
-
-[node name="Skyplane" parent="." unique_id=441013256 instance=ExtResource("1_amlj2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -173.42744, 0)
-metadata/_edit_lock_ = true
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1735818324]
-transform = Transform3D(-0.8120863, -0.46885833, 0.34740138, 0.30085844, 0.17370068, 0.9377165, -0.50000006, 0.8660254, 3.7855173e-08, 0, 0, 0)
-light_color = Color(0.8757403, 0.93532944, 0.9452302, 1)
-light_energy = 3.184
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." unique_id=70517165]
+transform = Transform3D(0.75, 0.4330127, -0.5000002, 0.42370665, 0.26594853, 0.8658776, 0.5079104, -0.86126155, 0.015991062, 0, 40.821335, 0.0560112)
+light_energy = 2.0
 light_angular_distance = 5.0
 shadow_enabled = true
-shadow_reverse_cull_face = true
-shadow_opacity = 0.95
-directional_shadow_fade_start = 0.528
-directional_shadow_max_distance = 500.0
+shadow_opacity = 0.3
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=893809505]
 environment = SubResource("Environment_748nt")
 
 [node name="Player" parent="." unique_id=94612561 instance=ExtResource("1_b3ony")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59.19712, -654.0189, 30.223587)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28980923, 0, 0.5198641)
 
 [node name="Enemies" type="Node3D" parent="." unique_id=1063892370]
 
-[node name="AroundWorld" type="Node3D" parent="." unique_id=1117335297]
+[node name="Turret" parent="Enemies" unique_id=77273623 instance=ExtResource("2_1xuw6")]
+transform = Transform3D(0.65385914, 0, -0.75661623, 0, 1, 0, 0.7566161, 0, 0.6538592, 3.97548, 5.6743946, -22.464518)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="AroundWorld" unique_id=343253258]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -663.28406, 0)
-visible = false
-mesh = SubResource("QuadMesh_3x8ub")
+[node name="Spider" parent="Enemies" unique_id=804887201 instance=ExtResource("3_amlj2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.850292, 16.893461, 6.4875526)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="AroundWorld" unique_id=1829448209]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -723.9905, 0)
+[node name="Fly" parent="Enemies" unique_id=657523278 instance=ExtResource("2_w5gid")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.469564, 10.129171, -17.768387)
+
+[node name="Turret2" parent="Enemies" unique_id=1870468105 instance=ExtResource("2_1xuw6")]
+transform = Transform3D(0.65385914, 0, -0.75661623, 0, 1, 0, 0.7566161, 0, 0.6538592, 17.62737, 11.797296, -25.229923)
+
+[node name="Fly2" parent="Enemies" unique_id=826672363 instance=ExtResource("2_w5gid")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.79728, 14.775822, -9.752653)
+
+[node name="Fly3" parent="Enemies" unique_id=1813596856 instance=ExtResource("2_w5gid")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.658895, 15.454292, -3.6365948)
+
+[node name="Fly4" parent="Enemies" unique_id=573014326 instance=ExtResource("2_w5gid")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.190495, 15.547846, 0.8622713)
+
+[node name="Fly5" parent="Enemies" unique_id=1583502198 instance=ExtResource("2_w5gid")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2603445, 35.15951, -12.904852)
+
+[node name="Spider2" parent="Enemies" unique_id=157493561 instance=ExtResource("3_amlj2")]
+transform = Transform3D(0.8901758, 0, 0.45561737, 0, 1, 0, -0.45561737, 0, 0.8901758, 14.751947, 36.177425, -4.123644)
+
+[node name="Turret3" parent="Enemies" unique_id=801161648 instance=ExtResource("2_1xuw6")]
+transform = Transform3D(0.7019858, -0.18641132, -0.68736213, -0.16427061, 0.89673233, -0.41095775, 0.69298685, 0.40139994, 0.5988715, -11.642748, 25.306797, -6.610181)
+
+[node name="Turret4" parent="Enemies" unique_id=1002865940 instance=ExtResource("2_1xuw6")]
+transform = Transform3D(0.7019858, -0.18641132, -0.68736213, -0.16427061, 0.89673233, -0.41095775, 0.69298685, 0.40139994, 0.5988715, -2.3254023, 29.251244, -8.595901)
+
+[node name="Turret5" parent="Enemies" unique_id=1418288496 instance=ExtResource("2_1xuw6")]
+transform = Transform3D(0.7019858, -0.18641132, -0.68736213, -0.16427061, 0.89673233, -0.41095775, 0.69298685, 0.40139994, 0.5988715, -6.335129, 30.797104, -17.213802)
+
+[node name="Fly6" parent="Enemies" unique_id=126910168 instance=ExtResource("2_w5gid")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2603445, 35.465538, -21.891518)
+
+[node name="Turret6" parent="Enemies" unique_id=1368885104 instance=ExtResource("2_1xuw6")]
+transform = Transform3D(0.9999998, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 8.3947115, 36.12339, -8.255028)
+
+[node name="Turret7" parent="Enemies" unique_id=1331775789 instance=ExtResource("2_1xuw6")]
+transform = Transform3D(0.74912935, 0, 0.6624238, 0, 0.9999999, 0, -0.6624236, 0, 0.7491296, 15.436802, 36.12339, -11.079399)
+
+[node name="Platforms" type="Node3D" parent="." unique_id=200877618]
+
+[node name="Tower" type="CSGCylinder3D" parent="Platforms" unique_id=833416090]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.09189, 16.040714, -2.0422745)
+material_override = SubResource("StandardMaterial3D_symyc")
 use_collision = true
-size = Vector3(1000, 50, 1000)
+radius = 12.0
+height = 40.25415
 
-[node name="Drill" type="Node3D" parent="." unique_id=127304508]
-transform = Transform3D(0.9985572, 0, -0.06689523, 0, 1, 0, 0.06689523, 0, 0.9985572, 0, -108.33307, 0)
-script = ExtResource("7_ecds7")
-parts = Array[PackedScene]([ExtResource("8_74oec"), ExtResource("9_bgq80"), ExtResource("11_7xuvk")])
-count = 70
-step_distance = -10.0
-rotation_step_deg = -90.0
-drill_rotation_speed = -0.2
-randomize_on_launch = true
+[node name="Platform" type="CSGCylinder3D" parent="Platforms" unique_id=1115570105]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.4271661, 0)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+radius = 2.0
+
+[node name="Platform2" type="CSGCylinder3D" parent="Platforms" unique_id=62196053]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.682022, -0.4486066, -3.2401311)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+radius = 2.0
+
+[node name="Platform3" type="CSGCylinder3D" parent="Platforms" unique_id=367377292]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3824072, -9.907841)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+radius = 2.0
+
+[node name="Platform4" type="CSGBox3D" parent="Platforms" unique_id=372263092]
+transform = Transform3D(0.6538592, -0.28219554, -0.70202124, 0, 0.9278432, -0.37297052, 0.75661623, 0.2438702, 0.60667884, 9.749125, 6.605398, -17.936935)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+size = Vector3(5, 1, 20)
+
+[node name="Platform5" type="CSGCylinder3D" parent="Platforms" unique_id=1757283124]
+transform = Transform3D(0.6538592, 0, -0.75661623, 0, 1, 0, 0.75661623, 0, 0.6538592, 4.356325, 4.7642145, -22.616047)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+radius = 2.0
+
+[node name="Platform6" type="CSGCylinder3D" parent="Platforms" unique_id=1318355792]
+transform = Transform3D(0.6538592, 0, -0.75661623, 0, 1, 0, 0.75661623, 0, 0.6538592, 17.951113, 10.896314, -25.606663)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+radius = 2.0
+
+[node name="Platform7" type="CSGCylinder3D" parent="Platforms" unique_id=211735181]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7536755, 0.7811569, -8.208004)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+radius = 2.0
+
+[node name="Platform8" type="CSGBox3D" parent="Platforms" unique_id=171929029]
+transform = Transform3D(-0.11366066, -0.37055355, -0.9218304, -1.12744605e-08, 0.9278432, -0.37297052, 0.99351966, -0.042392105, -0.10545927, 20.330711, 11.020334, -17.942513)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+size = Vector3(5, 1, 10)
+
+[node name="Platform9" type="CSGCylinder3D" parent="Platforms" unique_id=955041917]
+transform = Transform3D(0.6538592, 0, -0.75661623, 0, 1, 0, 0.7566163, 0, 0.65385926, 30.16703, 12.977247, -7.10983)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+radius = 2.0
+
+[node name="Platform10" type="CSGBox3D" parent="Platforms" unique_id=1256956642]
+transform = Transform3D(0.809827, 0, 0.58666855, 0, 0.9999999, 0, -0.58666855, 0, 0.809827, 29.96493, 15.566994, -14.576153)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+size = Vector3(1, 5, 12)
+
+[node name="Platform11" type="CSGBox3D" parent="Platforms" unique_id=1021422819]
+transform = Transform3D(0.88157845, 0.13201264, -0.45320195, -0.05188231, 0.9813788, 0.18494198, 0.4691777, -0.13952777, 0.87201184, 31.308289, 15.658829, 6.292901)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+size = Vector3(10, 1, 20)
+
+[node name="Platform12" type="CSGBox3D" parent="Platforms" unique_id=1553433716]
+transform = Transform3D(0.5424433, 0, -0.84009266, 0, 0.99999976, 0, 0.84009266, 0, 0.5424433, 24.383621, 18.142595, 17.709753)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+size = Vector3(10, 1, 2)
+
+[node name="Platform13" type="CSGBox3D" parent="Platforms" unique_id=1414508602]
+transform = Transform3D(0.301554, 0, -0.9534492, 0, 0.99999964, 0, 0.9534492, 0, 0.301554, 21.31948, 18.715246, 19.30267)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+size = Vector3(10, 1, 2)
+
+[node name="Platform14" type="CSGBox3D" parent="Platforms" unique_id=2050787961]
+transform = Transform3D(-0.129255, 0, -0.99161166, 0, 0.99999976, 0, 0.99161166, 0, -0.129255, 16.751728, 19.610867, 19.939583)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+size = Vector3(10, 1, 3.128418)
+
+[node name="Platform15" type="CSGCylinder3D" parent="Platforms" unique_id=761472917]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.15091, 20.233864, 20.82233)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+radius = 2.0
+
+[node name="Platform16" type="CSGBox3D" parent="Platforms" unique_id=587683959]
+transform = Transform3D(-0.39577937, 0.04953512, -0.91700864, 0.014515131, 0.998757, 0.047686324, 0.91823095, 0.005562784, -0.3960064, 1.7542934, 22.924778, 18.593597)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+size = Vector3(1, 5, 12)
+
+[node name="Platform17" type="CSGBox3D" parent="Platforms" unique_id=559233567]
+transform = Transform3D(-0.75906503, 0.04204984, -0.64965516, 0.014515127, 0.9987569, 0.047686316, 0.6508529, 0.026767202, -0.7587317, -5.330492, 24.412998, 4.4897957)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+size = Vector3(1, 5, 12)
+
+[node name="Platform18" type="CSGCylinder3D" parent="Platforms" unique_id=1638250858]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.665557, 21.758493, 12.162994)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+radius = 2.0
+height = 1.0874023
+
+[node name="Platform19" type="CSGCylinder3D" parent="Platforms" unique_id=297168052]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.00627, 23.340952, 1.3625164)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+radius = 2.0
+height = 0.73583984
+
+[node name="Platform20" type="CSGBox3D" parent="Platforms" unique_id=1738777016]
+transform = Transform3D(0.84872496, -0.3396718, -0.40532535, 0.15843332, 0.8945643, -0.41791564, 0.504544, 0.29047844, 0.8130547, -6.091854, 27.647137, -9.808077)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+size = Vector3(10, 1, 20)
+
+[node name="Platform21" type="CSGCylinder3D" parent="Platforms" unique_id=1307568568]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9657793, 32.96647, -17.844603)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+radius = 2.0
+height = 0.73583984
+
+[node name="Platform22" type="CSGCylinder3D" parent="Platforms" unique_id=1246470872]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.488581, 35.272453, -16.567545)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+radius = 2.0
+height = 0.73583984
+
+[node name="VictoryCollider" parent="Platforms" unique_id=584959554 instance=ExtResource("5_amlj2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.078243, 38.46433, 5.249315)
+
+[node name="Platform23" type="CSGCylinder3D" parent="Platforms" unique_id=128310456]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.151, 36.73593, 5.2)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+radius = 1.0
+
+[node name="Platform24" type="CSGCylinder3D" parent="Platforms" unique_id=1735284687]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.151, 36.669594, 5.2)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+radius = 1.5
+height = 1.0
+
+[node name="Platform25" type="CSGCylinder3D" parent="Platforms" unique_id=1226699728]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.151, 36.30562, 5.2)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+radius = 2.0
+height = 0.5
+
+[node name="Platform26" type="CSGBox3D" parent="Platforms" unique_id=756397030]
+transform = Transform3D(0.3713678, 0, -0.9284856, 0, 1.0000001, 0, 0.92848575, 0, 0.37136775, 19.635681, 38.856373, 7.682995)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+size = Vector3(1, 5, 10)
+
+[node name="Platform27" type="CSGBox3D" parent="Platforms" unique_id=29964571]
+transform = Transform3D(-0.3746066, 0, -0.9271836, 0, 1.0000005, 0, 0.92718387, 0, -0.37460652, 10.182402, 38.80089, 7.584524)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+size = Vector3(1, 5, 10)
+
+[node name="Platform28" type="CSGBox3D" parent="Platforms" unique_id=1336370470]
+transform = Transform3D(0.9169469, 0.014404564, -0.39874902, -0.015707316, 0.99987733, 0, 0.39869985, 0.006263283, 0.9170599, 25.544905, 38.77887, 1.4184785)
+material_override = SubResource("StandardMaterial3D_symyc")
+use_collision = true
+size = Vector3(1, 5, 10)

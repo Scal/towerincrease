@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://c4lsyeegw8306"]
+
+[ext_resource type="Script" uid="uid://dgg83nro567c8" path="res://world/levels/victory_collider.gd" id="1_l2p7t"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l2p7t"]
+
+[node name="VictoryCollider" type="Node3D" unique_id=584959554]
+script = ExtResource("1_l2p7t")
+
+[node name="VictoryArea" type="Area3D" parent="." unique_id=560945193]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48327327, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="VictoryArea" unique_id=1471009994]
+shape = SubResource("BoxShape3D_l2p7t")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=2065823707]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+light_color = Color(1, 1, 0, 1)
+spot_range = 0.5
