@@ -6,12 +6,9 @@
 [ext_resource type="Script" uid="uid://byoc6vlyqi7pj" path="res://world/levels/music_player.gd" id="2_15ww5"]
 [ext_resource type="AudioStream" uid="uid://bcv1ef6iqn0n6" path="res://common/audio/summer_incident.mp3" id="3_qmul6"]
 [ext_resource type="Script" uid="uid://blxjfy1mw7nco" path="res://world/levels/drill.gd" id="7_ecds7"]
-[ext_resource type="PackedScene" uid="uid://3tb3addro7mw" path="res://world/props/drill_parts/spiral.tscn" id="8_74oec"]
-[ext_resource type="PackedScene" uid="uid://dvuydxmgrwogs" path="res://world/props/drill_parts/spiral_hole.tscn" id="9_bgq80"]
-[ext_resource type="PackedScene" uid="uid://wm4n31u400e4" path="res://world/props/drill_parts/spiral_broken.tscn" id="11_7xuvk"]
+[ext_resource type="Texture2D" uid="uid://c0km5mdp614rr" path="res://world/levels/drillbg.png" id="7_kpvwd"]
+[ext_resource type="Shader" uid="uid://cnfl2458yqbiv" path="res://world/levels/world.gdshader" id="8_bgq80"]
 [ext_resource type="PhysicsMaterial" uid="uid://b2237v1a1eupt" path="res://world/props/drill_parts/drill.phymat" id="11_ew473"]
-[ext_resource type="Script" uid="uid://bm2jlpfxtnerr" path="res://world/levels/around_world.gd" id="11_lllie"]
-[ext_resource type="PackedScene" uid="uid://cdpr8h3imvgso" path="res://entities/enemies/spider/spider.tscn" id="12_lllie"]
 [ext_resource type="PackedScene" uid="uid://3epj3cqg3pdi" path="res://world/props/drill_parts/spiral_nose.tscn" id="16_ckt1p"]
 
 [sub_resource type="Gradient" id="Gradient_ew473"]
@@ -21,14 +18,11 @@ colors = PackedColorArray(0, 0, 0, 1, 0.28479043, 0.3452908, 0.22906268, 1, 0.78
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ew473"]
 gradient = SubResource("Gradient_ew473")
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_m637p"]
-sky_top_color = Color(0.16277725, 0.39346677, 0.48871523, 1)
-sky_horizon_color = Color(0.45141062, 0.5035489, 0.52113336, 1)
-ground_bottom_color = Color(0.123719044, 0.10158274, 0.076672085, 1)
-ground_horizon_color = Color(0.45141062, 0.5035489, 0.52113336, 1)
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_qmul6"]
+panorama = ExtResource("7_kpvwd")
 
 [sub_resource type="Sky" id="Sky_od3m6"]
-sky_material = SubResource("ProceduralSkyMaterial_m637p")
+sky_material = SubResource("PanoramaSkyMaterial_qmul6")
 radiance_size = 4
 
 [sub_resource type="Environment" id="Environment_748nt"]
@@ -36,11 +30,9 @@ background_mode = 2
 sky = SubResource("Sky_od3m6")
 ssao_enabled = true
 glow_enabled = true
-fog_enabled = true
 fog_light_color = Color(0.7911752, 0.82726246, 0.7852532, 1)
 fog_light_energy = 0.05
 fog_sun_scatter = 0.02
-fog_aerial_perspective = 0.65
 volumetric_fog_density = 0.0022
 volumetric_fog_albedo = Color(0.8234244, 0.59423196, 0.5439221, 1)
 volumetric_fog_anisotropy = 0.87
@@ -50,14 +42,37 @@ adjustment_contrast = 1.25
 adjustment_saturation = 0.9
 adjustment_color_correction = SubResource("GradientTexture1D_ew473")
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_3x8ub"]
+radius = 122.75384
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bgq80"]
+render_priority = 0
+shader = ExtResource("8_bgq80")
+shader_parameter/base_sand_color = Color(0.189262, 0.12450532, 0.0392542, 1)
+shader_parameter/dune_crest_color = Color(0.43078476, 0.31260002, 0.11020944, 1)
+shader_parameter/shadow_sand_color = Color(0.6134909, 0.41171753, 0.20186132, 1)
+shader_parameter/dune_scale = 0.066000003135
+shader_parameter/ripple_scale = 0.10000000149012
+shader_parameter/grain_scale = 10.0
+shader_parameter/roughness = 1.0
+shader_parameter/ripple_bump = 0.6370000302575
+
 [sub_resource type="BoxMesh" id="BoxMesh_lllie"]
 size = Vector3(1000, 2.797, 1000)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ckt1p"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_74oec"]
 size = Vector3(1000, 2.797, 1000)
 
-[node name="World" type="Node3D" unique_id=1328101134]
+[node name="World" type="Node3D" unique_id=1328101134 node_paths=PackedStringArray("around_world", "world_environment")]
 script = ExtResource("1_bgq80")
+around_world = NodePath("AroundWorld")
+world_environment = NodePath("WorldEnvironment")
+move_speed = -20.0
+rotation_speed_deg = -5.0
+sky_rotation_speed_deg = -20.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=893809505]
+environment = SubResource("Environment_748nt")
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1872293741]
 bus = &"Music"
@@ -65,17 +80,15 @@ script = ExtResource("2_15ww5")
 default_track = ExtResource("3_qmul6")
 
 [node name="Player" parent="." unique_id=94612561 instance=ExtResource("1_b3ony")]
-transform = Transform3D(0.50668013, 0, 0.8621341, 0, 1, 0, -0.8621341, 0, 0.50668013, 46.305634, -96.607735, 21.013641)
+transform = Transform3D(-0.18040773, 0, -0.9835919, 0, 1, 0, 0.9835919, 0, -0.18040773, -27.738144, 143.19653, -25.440636)
 
 [node name="Enemies" type="Node3D" parent="." unique_id=1063892370]
 
 [node name="AroundWorld" type="Node3D" parent="." unique_id=1117335297]
-script = ExtResource("11_lllie")
-drill_speed = 0.5
-drill_rotation_speed = -0.5
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 875.4348, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="AroundWorld" unique_id=1735818324]
-transform = Transform3D(-0.8120863, -0.46885833, 0.3474014, 0.30085844, 0.17370068, 0.93771654, -0.50000006, 0.8660254, 5.361552e-08, 0, 0, 0)
+transform = Transform3D(-0.58529294, -0.27460515, 0.7629051, 0.71762025, 0.2625426, 0.6450522, -0.37742972, 0.9250207, 0.043397874, 0, 0, 0)
 light_color = Color(0.8757403, 0.93532944, 0.9452302, 1)
 light_energy = 3.184
 light_angular_distance = 5.0
@@ -87,26 +100,30 @@ directional_shadow_max_distance = 500.0
 
 [node name="Skyplane" parent="AroundWorld" unique_id=441013256 instance=ExtResource("1_amlj2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -173.42744, 0)
-metadata/_edit_lock_ = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="AroundWorld" unique_id=893809505]
-environment = SubResource("Environment_748nt")
+[node name="Area3D" type="Area3D" parent="AroundWorld" unique_id=417320424]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -797.4452, 0)
 
-[node name="AnimatableBody3D" type="AnimatableBody3D" parent="AroundWorld" unique_id=1462653558]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AroundWorld/Area3D" unique_id=1039999122]
+shape = SubResource("SphereShape3D_3x8ub")
+
+[node name="StaticBody" type="AnimatableBody3D" parent="AroundWorld" unique_id=637798509]
+collision_layer = 2
+collision_mask = 3
 physics_material_override = ExtResource("11_ew473")
+sync_to_physics = false
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="AroundWorld/AnimatableBody3D" unique_id=343253258]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="AroundWorld/StaticBody" unique_id=343253258]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -795.7631, 0)
+material_override = SubResource("ShaderMaterial_bgq80")
 mesh = SubResource("BoxMesh_lllie")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="AroundWorld/AnimatableBody3D" unique_id=1584677491]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AroundWorld/StaticBody" unique_id=1048475150]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -795.7631, 0)
-shape = SubResource("BoxShape3D_ckt1p")
+shape = SubResource("BoxShape3D_74oec")
 
 [node name="Drill" type="Node3D" parent="." unique_id=127304508]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -108.33307, 0)
 script = ExtResource("7_ecds7")
-parts = Array[PackedScene]([ExtResource("8_74oec"), ExtResource("9_bgq80"), ExtResource("11_7xuvk")])
 count = 70
 step_distance = -10.0
 rotation_step_deg = -90.0
@@ -114,6 +131,3 @@ randomize_on_launch = true
 
 [node name="spiral_nose" parent="Drill" unique_id=2067517495 instance=ExtResource("16_ckt1p")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 9.945526, 0)
-
-[node name="Spider" parent="." unique_id=804887201 instance=ExtResource("12_lllie")]
-transform = Transform3D(-0.99997604, 0, -0.0069204336, 0, 1, 0, 0.0069204336, 0, -0.99997604, 34.67384, -98.109146, -39.156517)
