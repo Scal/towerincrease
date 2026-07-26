@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://dclunake2c433" path="res://entities/enemies/fly/fly.tscn" id="10_qmul6"]
 [ext_resource type="PackedScene" uid="uid://wm4n31u400e4" path="res://world/props/drill_parts/spiral_broken.tscn" id="11_7xuvk"]
 [ext_resource type="PackedScene" uid="uid://by643hbasgu3s" path="res://entities/enemies/pop/pop.tscn" id="11_kpvwd"]
+[ext_resource type="Script" uid="uid://bm2jlpfxtnerr" path="res://world/levels/around_world.gd" id="11_lllie"]
 [ext_resource type="PackedScene" uid="uid://cdpr8h3imvgso" path="res://entities/enemies/spider/spider.tscn" id="12_lllie"]
 [ext_resource type="PackedScene" uid="uid://c1qf7vam8ntog" path="res://entities/enemies/turret/turret.tscn" id="13_ew473"]
 
@@ -69,30 +70,30 @@ shadow_opacity = 0.95
 directional_shadow_fade_start = 0.528
 directional_shadow_max_distance = 500.0
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=893809505]
-environment = SubResource("Environment_748nt")
-
 [node name="Player" parent="." unique_id=94612561 instance=ExtResource("1_b3ony")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124.93759, -698.9905, -38.247017)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.21632, -94.85702, -4.8642197)
 
 [node name="Enemies" type="Node3D" parent="." unique_id=1063892370]
 
 [node name="Fly" parent="Enemies" unique_id=657523278 instance=ExtResource("10_qmul6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 115.12548, -692.1059, -56.409317)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.055855, -98.64931, -56.409317)
 
 [node name="Pop" parent="Enemies" unique_id=179741264 instance=ExtResource("11_kpvwd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 131.8818, -698.1853, -63.041756)
-
-[node name="Spider" parent="Enemies" unique_id=804887201 instance=ExtResource("12_lllie")]
-transform = Transform3D(-0.9429993, 0, 0.3327948, 0, 1, 0, -0.3327948, 0, -0.9429993, 139.45375, -698.2343, -52.763542)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.81218, -104.728714, -63.041756)
 
 [node name="Turret" parent="Enemies" unique_id=1870468105 instance=ExtResource("13_ew473")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 151.64784, -698.1603, -39.69436)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.57822, -104.70369, -39.69436)
 
 [node name="rocket" parent="Enemies" unique_id=2089301376 instance=ExtResource("10_kpvwd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.67917, -675.1956, -26.05358)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.390457, -81.73903, -26.05358)
 
 [node name="AroundWorld" type="Node3D" parent="." unique_id=1117335297]
+script = ExtResource("11_lllie")
+drill_speed = 0.0
+drill_rotation_speed = 0.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="AroundWorld" unique_id=893809505]
+environment = SubResource("Environment_748nt")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="AroundWorld" unique_id=343253258]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -663.28406, 0)
@@ -112,6 +113,7 @@ parts = Array[PackedScene]([ExtResource("8_74oec"), ExtResource("9_bgq80"), ExtR
 count = 70
 step_distance = -10.0
 rotation_step_deg = -90.0
-drill_speed = 1.0
-drill_rotation_speed = -0.1
 randomize_on_launch = true
+
+[node name="Spider" parent="." unique_id=804887201 instance=ExtResource("12_lllie")]
+transform = Transform3D(-0.99997604, 0, -0.0069204336, 0, 1, 0, 0.0069204336, 0, -0.99997604, 34.67384, -98.109146, -39.156517)

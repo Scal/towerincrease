@@ -1,24 +1,173 @@
 [gd_scene format=3 uid="uid://cdpr8h3imvgso"]
 
 [ext_resource type="PackedScene" uid="uid://bnvidtbfi2dhq" path="res://entities/enemies/spider/spider.blend" id="1_hwkc7"]
+[ext_resource type="Script" uid="uid://bkegs3wxxsm6i" path="res://entities/enemies/spider/spider.gd" id="2_ommo1"]
+[ext_resource type="PackedScene" uid="uid://cg3wcwl7tr26c" path="res://entities/enemies/rocket/rocket.tscn" id="3_6fmus"]
+[ext_resource type="Script" uid="uid://b8q1rrhseamv0" path="res://entities/enemies/spider/spider_ik_controller.gd" id="4_6fmus"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_maq14"]
-radius = 0.8239416
+radius = 1.7539686
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_hwkc7"]
-radius = 6.97527
+radius = 31.237852
 
-[node name="Spider" unique_id=804887201 instance=ExtResource("1_hwkc7")]
+[sub_resource type="SphereShape3D" id="SphereShape3D_ommo1"]
+radius = 69.21059
 
-[node name="spiderEnemy_Rig" parent="." index="0" unique_id=995167904]
-transform = Transform3D(2.458315, 0, 0, 0, 2.458315, 0, 0, 0, 2.458315, 0, -0.58767134, 0)
+[node name="Spider" unique_id=804887201 node_paths=PackedStringArray("visual_model", "detection_area", "undetection_area", "projectile_spawner") instance=ExtResource("1_hwkc7")]
+script = ExtResource("2_ommo1")
+speed = null
+turning_speed = null
+attack_distance = null
+jump_force = null
+jump_forward_impulse = null
+attack_damage = null
+jump_prep_time = null
+jump_cooldown_time = null
+recovery_time = null
+visual_model = NodePath("spiderEnemy_Rig/Skeleton3D")
+align_speed = null
+ik_cull_distance = null
+shooting_interval = null
+attack_angle = null
+projectile_scene = ExtResource("3_6fmus")
+detection_area = NodePath("DetectionArea")
+undetection_area = NodePath("UndetectionArea")
+projectile_spawner = NodePath("ProjectileSpawner")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1" unique_id=1786931260]
-transform = Transform3D(2.458315, 0, 0, 0, 2.458315, 0, 0, 0, 2.458315, 0, 1.3936307, 0)
+[node name="SpiderIKController" type="Node3D" parent="." index="0" unique_id=1761285100 node_paths=PackedStringArray("root_node", "leg_ik_targets", "leg_raycasts", "rest_targets", "skeleton_ik_nodes")]
+script = ExtResource("4_6fmus")
+root_node = NodePath("..")
+leg_ik_targets = [NodePath("../IKTargets/Marker3DL1"), NodePath("../IKTargets/Marker3DL2"), NodePath("../IKTargets/Marker3DL3"), NodePath("../IKTargets/Marker3DR1"), NodePath("../IKTargets/Marker3DR2"), NodePath("../IKTargets/Marker3DR3")]
+leg_raycasts = [NodePath("../IKRays/RayCastL1"), NodePath("../IKRays/RayCastL2"), NodePath("../IKRays/RayCastL3"), NodePath("../IKRays/RayCastR1"), NodePath("../IKRays/RayCastR2"), NodePath("../IKRays/RayCastR3")]
+rest_targets = [NodePath("../IKTargetsRest/Marker3DL1"), NodePath("../IKTargetsRest/Marker3DL2"), NodePath("../IKTargetsRest/Marker3DL3"), NodePath("../IKTargetsRest/Marker3DR1"), NodePath("../IKTargetsRest/Marker3DR2"), NodePath("../IKTargetsRest/Marker3DR3")]
+skeleton_ik_nodes = [NodePath("../spiderEnemy_Rig/Skeleton3D/IK_L1"), NodePath("../spiderEnemy_Rig/Skeleton3D/IK_L2"), NodePath("../spiderEnemy_Rig/Skeleton3D/IK_L3"), NodePath("../spiderEnemy_Rig/Skeleton3D/IK_R1"), NodePath("../spiderEnemy_Rig/Skeleton3D/IK_R2"), NodePath("../spiderEnemy_Rig/Skeleton3D/IK_R3")]
+step_distance = 2.0
+step_height = 2.0
+step_speed = 4.0
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." index="1" unique_id=2019937232]
+
+[node name="spiderEnemy_Rig" parent="." index="2" unique_id=944985371]
+transform = Transform3D(2.458315, 0, 0, 0, 2.458315, 0, 0, 0, 2.458315, 0, -0.18637931, 0)
+
+[node name="IK_R1" type="SkeletonIK3D" parent="spiderEnemy_Rig/Skeleton3D" parent_id_path=PackedInt32Array(232727246) index="0" unique_id=365352040]
+root_bone = &"leg.L"
+tip_bone = &"leg.L.005"
+override_tip_basis = false
+target_node = NodePath("../../../IKTargets/Marker3DR1")
+
+[node name="IK_R2" type="SkeletonIK3D" parent="spiderEnemy_Rig/Skeleton3D" parent_id_path=PackedInt32Array(232727246) index="1" unique_id=1308458807]
+root_bone = &"leg.L.001"
+tip_bone = &"leg.L.004"
+override_tip_basis = false
+target_node = NodePath("../../../IKTargets/Marker3DR2")
+
+[node name="IK_R3" type="SkeletonIK3D" parent="spiderEnemy_Rig/Skeleton3D" parent_id_path=PackedInt32Array(232727246) index="2" unique_id=1146960505]
+root_bone = &"leg.L.002"
+tip_bone = &"leg.L.003"
+override_tip_basis = false
+target_node = NodePath("../../../IKTargets/Marker3DR3")
+
+[node name="IK_L1" type="SkeletonIK3D" parent="spiderEnemy_Rig/Skeleton3D" parent_id_path=PackedInt32Array(232727246) index="3" unique_id=2099664399]
+root_bone = &"leg.R"
+tip_bone = &"leg.R.005"
+override_tip_basis = false
+target_node = NodePath("../../../IKTargets/Marker3DL1")
+
+[node name="IK_L2" type="SkeletonIK3D" parent="spiderEnemy_Rig/Skeleton3D" parent_id_path=PackedInt32Array(232727246) index="4" unique_id=629408023]
+root_bone = &"leg.R.001"
+tip_bone = &"leg.R.004"
+override_tip_basis = false
+target_node = NodePath("../../../IKTargets/Marker3DL2")
+
+[node name="IK_L3" type="SkeletonIK3D" parent="spiderEnemy_Rig/Skeleton3D" parent_id_path=PackedInt32Array(232727246) index="5" unique_id=360458576]
+root_bone = &"leg.R.002"
+tip_bone = &"leg.R.003"
+override_tip_basis = false
+target_node = NodePath("../../../IKTargets/Marker3DL3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="3" unique_id=1786931260]
+transform = Transform3D(2.458315, 0, 0, 0, 2.458315, 0, 0, 0, 2.458315, 0, 4.314343, 0)
 shape = SubResource("SphereShape3D_maq14")
 
-[node name="DetectionArea" type="Area3D" parent="." index="2" unique_id=1200761680]
+[node name="DetectionArea" type="Area3D" parent="." index="4" unique_id=1200761680]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea" index="0" unique_id=82854800]
 visible = false
 shape = SubResource("SphereShape3D_hwkc7")
+
+[node name="UndetectionArea" type="Area3D" parent="." index="5" unique_id=453041615]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="UndetectionArea" index="0" unique_id=549301491]
+visible = false
+shape = SubResource("SphereShape3D_ommo1")
+
+[node name="ProjectileSpawner" type="Node3D" parent="." index="6" unique_id=393081981]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.052886307, 4.3374662, -3.11901)
+
+[node name="IKTargets" type="Node3D" parent="." index="7" unique_id=507149553]
+
+[node name="Marker3DR1" type="Marker3D" parent="IKTargets" index="0" unique_id=170761717]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.0879955, 0, -7.5697412)
+
+[node name="Marker3DL1" type="Marker3D" parent="IKTargets" index="1" unique_id=2134743424]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.0394125, 0, -7.5697412)
+
+[node name="Marker3DR2" type="Marker3D" parent="IKTargets" index="2" unique_id=570117889]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.32057, 0, 0.9040792)
+
+[node name="Marker3DL2" type="Marker3D" parent="IKTargets" index="3" unique_id=1457475402]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.2195463, 0, 0.9376545)
+
+[node name="Marker3DR3" type="Marker3D" parent="IKTargets" index="4" unique_id=1867519655]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.9827404, 0, 5.91228)
+
+[node name="Marker3DL3" type="Marker3D" parent="IKTargets" index="5" unique_id=1670981111]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.1148605, 0, 5.91228)
+
+[node name="IKRays" type="Node3D" parent="." index="8" unique_id=2049520106]
+
+[node name="RayCastR1" type="RayCast3D" parent="IKRays" index="0" unique_id=62250900]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.0879955, 4, -7.5697412)
+target_position = Vector3(0, -4, 0)
+
+[node name="RayCastL1" type="RayCast3D" parent="IKRays" index="1" unique_id=2076838436]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.0394125, 4, -7.5697412)
+target_position = Vector3(0, -4, 0)
+
+[node name="RayCastR2" type="RayCast3D" parent="IKRays" index="2" unique_id=1231804656]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.32057, 4, 0.9040792)
+target_position = Vector3(0, -4, 0)
+
+[node name="RayCastL2" type="RayCast3D" parent="IKRays" index="3" unique_id=215278901]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.2195463, 4, 0.9376545)
+target_position = Vector3(0, -4, 0)
+
+[node name="RayCastR3" type="RayCast3D" parent="IKRays" index="4" unique_id=175274437]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.9827404, 4, 5.91228)
+target_position = Vector3(0, -4, 0)
+
+[node name="RayCastL3" type="RayCast3D" parent="IKRays" index="5" unique_id=1449299798]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.1148605, 4, 5.91228)
+target_position = Vector3(0, -4, 0)
+
+[node name="IKTargetsRest" type="Node3D" parent="." index="9" unique_id=1606855928]
+
+[node name="Marker3DR1" type="Marker3D" parent="IKTargetsRest" index="0" unique_id=497315838]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.0879955, 0, -7.5697412)
+
+[node name="Marker3DL1" type="Marker3D" parent="IKTargetsRest" index="1" unique_id=159374644]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.0394125, 0, -7.5697412)
+
+[node name="Marker3DR2" type="Marker3D" parent="IKTargetsRest" index="2" unique_id=1942637701]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.32057, 0, 0.9040792)
+
+[node name="Marker3DL2" type="Marker3D" parent="IKTargetsRest" index="3" unique_id=894585343]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.2195463, 0, 0.9376545)
+
+[node name="Marker3DR3" type="Marker3D" parent="IKTargetsRest" index="4" unique_id=1171648462]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.9827404, 0, 5.91228)
+
+[node name="Marker3DL3" type="Marker3D" parent="IKTargetsRest" index="5" unique_id=1622884267]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.1148605, 0, 5.91228)

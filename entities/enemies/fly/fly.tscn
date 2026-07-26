@@ -14,32 +14,33 @@ radius = 10.0
 radius = 15.0
 
 [node name="Fly" unique_id=657523278 node_paths=PackedStringArray("detection_area", "undetection_area", "projectile_spawner") instance=ExtResource("1_210si")]
+motion_mode = 1
 script = ExtResource("1_2fpj6")
 projectile_scene = ExtResource("3_owp6a")
 detection_area = NodePath("DetectionArea")
 undetection_area = NodePath("UndetectionArea")
 projectile_spawner = NodePath("ProjectileSpawner")
 
-[node name="ammo" parent="." index="0" unique_id=1262948630]
-transform = Transform3D(-3.8026805, 0, -3.324409e-07, 0, 3.8026805, 0, 3.324409e-07, 0, -3.8026805, 0.077111796, 0.062147554, -0.371194)
+[node name="ammo" parent="." index="0" unique_id=1265193542]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 
-[node name="arm" parent="." index="1" unique_id=2029814602]
-transform = Transform3D(-3.8026805, 0, -3.324409e-07, 0, 3.8026805, 0, 3.324409e-07, 0, -3.8026805, 0.077111796, 0.062147554, -0.371194)
+[node name="arm" parent="." index="1" unique_id=1409527724]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 
-[node name="body" parent="." index="2" unique_id=2071618693]
-transform = Transform3D(-3.8026805, 0, -3.324409e-07, 0, 3.8026805, 0, 3.324409e-07, 0, -3.8026805, 0.077111796, 0.062147554, -0.371194)
+[node name="body" parent="." index="2" unique_id=1581623663]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 
-[node name="gun" parent="." index="3" unique_id=42343044]
-transform = Transform3D(-3.8026805, 0, -3.324409e-07, 0, 3.8026805, 0, 3.324409e-07, 0, -3.8026805, 0.077111796, 0.062147554, -0.371194)
+[node name="gun" parent="." index="3" unique_id=2033815686]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 
-[node name="propeller_top" parent="." index="4" unique_id=1484949809]
-transform = Transform3D(-1.1295031, 0, -9.87443e-08, 0, 0.8834716, 0, 9.87443e-08, 0, -1.1295031, 0.08279604, 0.29224914, -0.3782117)
+[node name="propeller_top" parent="." index="4" unique_id=961665082]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 
-[node name="propller_back" parent="." index="5" unique_id=367392520]
-transform = Transform3D(-5.1530366, 0, -4.504928e-07, 0, 5.1530366, 0, 4.504928e-07, 0, -5.1530366, -0.2912654, -0.09773624, 1.69603)
+[node name="propller_back" parent="." index="5" unique_id=2037204686]
+transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="6" unique_id=1530843631]
-transform = Transform3D(-3.8026805, 0, -3.324409e-07, 0, 3.8026805, 0, 3.324409e-07, 0, -3.8026805, 0.21852143, -0.6328695, -0.36491954)
+transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0.21852143, -0.6328695, -0.36491954)
 shape = SubResource("SphereShape3D_3x8ub")
 
 [node name="DetectionArea" type="Area3D" parent="." index="7" unique_id=467041906]
