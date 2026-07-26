@@ -8,14 +8,18 @@
 [ext_resource type="Script" uid="uid://blxjfy1mw7nco" path="res://world/levels/drill.gd" id="7_ecds7"]
 [ext_resource type="PackedScene" uid="uid://3tb3addro7mw" path="res://world/props/drill_parts/spiral.tscn" id="8_74oec"]
 [ext_resource type="PackedScene" uid="uid://dvuydxmgrwogs" path="res://world/props/drill_parts/spiral_hole.tscn" id="9_bgq80"]
-[ext_resource type="PackedScene" uid="uid://cg3wcwl7tr26c" path="res://entities/enemies/rocket/rocket.tscn" id="10_kpvwd"]
-[ext_resource type="PackedScene" uid="uid://dclunake2c433" path="res://entities/enemies/fly/fly.tscn" id="10_qmul6"]
 [ext_resource type="PackedScene" uid="uid://wm4n31u400e4" path="res://world/props/drill_parts/spiral_broken.tscn" id="11_7xuvk"]
 [ext_resource type="PhysicsMaterial" uid="uid://b2237v1a1eupt" path="res://world/props/drill_parts/drill.phymat" id="11_ew473"]
-[ext_resource type="PackedScene" uid="uid://by643hbasgu3s" path="res://entities/enemies/pop/pop.tscn" id="11_kpvwd"]
 [ext_resource type="Script" uid="uid://bm2jlpfxtnerr" path="res://world/levels/around_world.gd" id="11_lllie"]
 [ext_resource type="PackedScene" uid="uid://cdpr8h3imvgso" path="res://entities/enemies/spider/spider.tscn" id="12_lllie"]
-[ext_resource type="PackedScene" uid="uid://c1qf7vam8ntog" path="res://entities/enemies/turret/turret.tscn" id="13_ew473"]
+[ext_resource type="PackedScene" uid="uid://3epj3cqg3pdi" path="res://world/props/drill_parts/spiral_nose.tscn" id="16_ckt1p"]
+
+[sub_resource type="Gradient" id="Gradient_ew473"]
+offsets = PackedFloat32Array(0, 0.38812786, 0.5212614, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.28479043, 0.3452908, 0.22906268, 1, 0.7810429, 0.47573608, 1.92523e-07, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ew473"]
+gradient = SubResource("Gradient_ew473")
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_m637p"]
 sky_top_color = Color(0.16277725, 0.39346677, 0.48871523, 1)
@@ -40,6 +44,11 @@ fog_aerial_perspective = 0.65
 volumetric_fog_density = 0.0022
 volumetric_fog_albedo = Color(0.8234244, 0.59423196, 0.5439221, 1)
 volumetric_fog_anisotropy = 0.87
+adjustment_enabled = true
+adjustment_brightness = 1.49
+adjustment_contrast = 1.25
+adjustment_saturation = 0.9
+adjustment_color_correction = SubResource("GradientTexture1D_ew473")
 
 [sub_resource type="BoxMesh" id="BoxMesh_lllie"]
 size = Vector3(1000, 2.797, 1000)
@@ -59,18 +68,6 @@ default_track = ExtResource("3_qmul6")
 transform = Transform3D(0.50668013, 0, 0.8621341, 0, 1, 0, -0.8621341, 0, 0.50668013, 46.305634, -96.607735, 21.013641)
 
 [node name="Enemies" type="Node3D" parent="." unique_id=1063892370]
-
-[node name="Fly" parent="Enemies" unique_id=657523278 instance=ExtResource("10_qmul6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.055855, -98.64931, -56.409317)
-
-[node name="Pop" parent="Enemies" unique_id=179741264 instance=ExtResource("11_kpvwd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.81218, -104.728714, -63.041756)
-
-[node name="Turret" parent="Enemies" unique_id=1870468105 instance=ExtResource("13_ew473")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.57822, -104.70369, -39.69436)
-
-[node name="rocket" parent="Enemies" unique_id=2089301376 instance=ExtResource("10_kpvwd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.390457, -81.73903, -26.05358)
 
 [node name="AroundWorld" type="Node3D" parent="." unique_id=1117335297]
 script = ExtResource("11_lllie")
@@ -107,13 +104,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -795.7631, 0)
 shape = SubResource("BoxShape3D_ckt1p")
 
 [node name="Drill" type="Node3D" parent="." unique_id=127304508]
-transform = Transform3D(0.9985572, 0, -0.06689523, 0, 1, 0, 0.06689523, 0, 0.9985572, 0, -108.33307, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -108.33307, 0)
 script = ExtResource("7_ecds7")
 parts = Array[PackedScene]([ExtResource("8_74oec"), ExtResource("9_bgq80"), ExtResource("11_7xuvk")])
 count = 70
 step_distance = -10.0
 rotation_step_deg = -90.0
 randomize_on_launch = true
+
+[node name="spiral_nose" parent="Drill" unique_id=2067517495 instance=ExtResource("16_ckt1p")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 9.945526, 0)
 
 [node name="Spider" parent="." unique_id=804887201 instance=ExtResource("12_lllie")]
 transform = Transform3D(-0.99997604, 0, -0.0069204336, 0, 1, 0, 0.0069204336, 0, -0.99997604, 34.67384, -98.109146, -39.156517)

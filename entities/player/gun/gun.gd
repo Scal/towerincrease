@@ -105,6 +105,7 @@ func shoot() -> void:
 
 
 func toggle_grapple() -> void:
+	_play_shoot_sound()
 	if _hook_state != HookState.IDLE:
 		_detach_hook()
 		return

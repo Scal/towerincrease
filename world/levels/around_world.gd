@@ -1,17 +1,27 @@
 # res://world/around_world.gd
 extends Node3D
 
+signal health_changed(current_health: float, max_health: float)
+signal damaged(amount: float)
 signal game_over
 
-@export_group("Drill Reaction Mechanics")
+@export_group("Stats")
+@export var max_health: float = 100.0
+@export_group("Drill Mechanics")
 @export var drill_speed: float = 2.0
 @export var drill_rotation_speed: float = 2.0
 @export var recoil_speed_multiplier: float = 2.5
-@export var recoil_duration: float = 1.0
+# How many Y-units of world progress are lost per 1 unit of damage
+@export var damage_to_distance_ratio: float = 0.5
 
-var _is_recoiling: bool = false
-var _recoil_timer: float = 0.0
+var current_health: float
+var _recoil_distance_left: float = 0.0
 var _is_game_over: bool = false
+
+
+func _ready() -> void:
+	current_health = max_health
+	health_changed.emit(current_health, max_health)
 
 
 func _physics_process(delta: float) -> void:
@@ -22,38 +32,48 @@ func _physics_process(delta: float) -> void:
 	_update_bodies_physics()
 
 
-func take_damage(_amount: float = 0.0) -> void:
-	if _is_game_over:
+func take_damage(amount: float) -> void:
+	if _is_game_over or amount <= 0.0:
 		return
 
-	_is_recoiling = true
-	_recoil_timer = recoil_duration
+	current_health = max(0.0, current_health - amount)
+	damaged.emit(amount)
+	#print(amount, current_health)
+	health_changed.emit(current_health, max_health)
+
+	# Calculate recoil distance based on damage received
+	_recoil_distance_left += amount * damage_to_distance_ratio
+
+	if current_health <= 0.0:
+		_trigger_game_over()
 
 
 func _handle_world_movement(delta: float) -> void:
-	if _is_recoiling:
-		_recoil_timer -= delta
-		if _recoil_timer <= 0.0:
-			_is_recoiling = false
-			_recoil_timer = 0.0
+	if _recoil_distance_left > 0.0:
+		# Recoil mode: moving UP relative to static drill
+		var step: float = drill_speed * recoil_speed_multiplier * delta
+		var actual_step: float = min(step, _recoil_distance_left)
 
-		# Recoil inverts relative movement
-		rotate_y(-drill_rotation_speed * recoil_speed_multiplier * delta)
-		global_position.y += drill_speed * recoil_speed_multiplier * delta
+		_recoil_distance_left -= actual_step
+
+		# Rotate back proportionally to movement speed ratio
+		var rot_step: float = (actual_step / drill_speed) * drill_rotation_speed
+		rotate_y(-rot_step)
+		global_position.y += actual_step
 
 		if global_position.y >= 0.0:
 			global_position.y = 0.0
 			_trigger_game_over()
 	else:
-		# Normal state: world rotates opposite to drill, moves DOWN relative to static drill
+		# Normal state: world moves DOWN
 		rotate_y(drill_rotation_speed * delta)
 		global_position.y -= drill_speed * delta
 
 
 func _update_bodies_physics() -> void:
-	# Linear & angular velocity for StaticBody3D nodes inside the world container
-	var current_rot_speed: float = (-drill_rotation_speed * recoil_speed_multiplier) if _is_recoiling else drill_rotation_speed
-	var current_move_speed: float = (drill_speed * recoil_speed_multiplier) if _is_recoiling else -drill_speed
+	var is_recoiling := _recoil_distance_left > 0.0
+	var current_rot_speed: float = (-drill_rotation_speed * recoil_speed_multiplier) if is_recoiling else drill_rotation_speed
+	var current_move_speed: float = (drill_speed * recoil_speed_multiplier) if is_recoiling else -drill_speed
 
 	var ang_vel := Vector3(0.0, current_rot_speed, 0.0)
 	var lin_vel := Vector3(0.0, current_move_speed, 0.0)

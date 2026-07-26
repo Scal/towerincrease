@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://3epj3cqg3pdi"]
+
+[ext_resource type="PackedScene" uid="uid://bv4ndnltr6ygv" path="res://world/props/drill_parts/spiral_nose.glb" id="1_qqs83"]
+[ext_resource type="Material" uid="uid://b31e63ostk2qw" path="res://common/materials/metal_noise.material" id="2_6jiq4"]
+
+[node name="spiral_nose" unique_id=2067517495 instance=ExtResource("1_qqs83")]
+
+[node name="Spiral" parent="." index="0" unique_id=1033287294]
+material_override = ExtResource("2_6jiq4")
