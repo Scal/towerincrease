@@ -21,22 +21,22 @@ detection_area = NodePath("DetectionArea")
 undetection_area = NodePath("UndetectionArea")
 projectile_spawner = NodePath("ProjectileSpawner")
 
-[node name="ammo" parent="." index="0" unique_id=1265193542]
+[node name="ammo" parent="." index="0" unique_id=554723605]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 
-[node name="arm" parent="." index="1" unique_id=1409527724]
+[node name="arm" parent="." index="1" unique_id=639597941]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 
-[node name="body" parent="." index="2" unique_id=1581623663]
+[node name="body" parent="." index="2" unique_id=1257160306]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 
-[node name="gun" parent="." index="3" unique_id=2033815686]
+[node name="gun" parent="." index="3" unique_id=962902676]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 
-[node name="propeller_top" parent="." index="4" unique_id=961665082]
+[node name="propeller_top" parent="." index="4" unique_id=709657747]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 
-[node name="propller_back" parent="." index="5" unique_id=2037204686]
+[node name="propller_back" parent="." index="5" unique_id=1970225806]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="6" unique_id=1530843631]

@@ -7,6 +7,7 @@ const CONTAINER_NAME := "GeneratedContainer"
 @export var parts: Array[PackedScene] = [
 	preload("res://world/props/drill_parts/spiral.tscn"),
 	preload("res://world/props/drill_parts/spiral_hole.tscn"),
+	preload("res://world/props/drill_parts/spiral_broken.tscn"),
 ]
 @export var count: int = 5:
 	set(value):
@@ -25,6 +26,9 @@ const CONTAINER_NAME := "GeneratedContainer"
 		random_seed = value
 		_queue_rebuild()
 @export var avoid_consecutive_duplicates: bool = true
+@export_group("Direction Settings")
+## If true, drill generates DOWNWARDS (0, -10, -20). If false, UPWARDS (0, 10, 20).
+@export var build_downwards: bool = false
 @export_group("Runtime Settings")
 @export var is_procedural_in_game: bool = true
 @export var randomize_on_launch: bool = false
@@ -39,11 +43,6 @@ const CONTAINER_NAME := "GeneratedContainer"
 func _ready() -> void:
 	if Engine.is_editor_hint() or is_procedural_in_game:
 		_generate_drill()
-
-
-func _physics_process(_delta: float) -> void:
-	# Keep shader materials updated in editor or if something alters drill scale/position
-	_update_shader_materials()
 
 
 func _queue_rebuild() -> void:
@@ -102,13 +101,16 @@ func _generate_drill() -> void:
 			if root:
 				instance.owner = root
 
-		instance.position = Vector3(0.0, i * step_distance, 0.0)
+		# Direction fix
+		var y_dir := -1.0 if build_downwards else 1.0
+		instance.position = Vector3(0.0, i * step_distance * y_dir, 0.0)
 		instance.rotation.y = deg_to_rad(i * rotation_step_deg)
 
-		if not in_editor:
-			_trigger_spawners_in_node(instance)
-
-	_update_shader_materials()
+	if not in_editor:
+		# Trigger spawners after full tree notification cycle
+		await get_tree().process_frame
+		if is_instance_valid(container):
+			_trigger_spawners_in_node(container)
 
 
 func _trigger_spawners_in_node(node: Node) -> void:
@@ -117,29 +119,3 @@ func _trigger_spawners_in_node(node: Node) -> void:
 			child.trigger_spawn()
 		else:
 			_trigger_spawners_in_node(child)
-
-
-func _update_shader_materials() -> void:
-	var inv_transform: Transform3D = global_transform.affine_inverse()
-	_apply_matrix_recursive(self, inv_transform)
-
-
-func _apply_matrix_recursive(node: Node, inv_transform: Transform3D) -> void:
-	if node is MeshInstance3D:
-		_apply_to_mesh(node, inv_transform)
-
-	for child in node.get_children():
-		_apply_matrix_recursive(child, inv_transform)
-
-
-func _apply_to_mesh(mesh: MeshInstance3D, inv_transform: Transform3D) -> void:
-	if mesh.material_override is ShaderMaterial:
-		(mesh.material_override as ShaderMaterial).set_shader_parameter("parent_inverse_matrix", inv_transform)
-
-	if mesh.mesh:
-		for i in mesh.mesh.get_surface_count():
-			var mat = mesh.get_surface_override_material(i)
-			if not mat:
-				mat = mesh.mesh.surface_get_material(i)
-			if mat is ShaderMaterial:
-				mat.set_shader_parameter("parent_inverse_matrix", inv_transform)
